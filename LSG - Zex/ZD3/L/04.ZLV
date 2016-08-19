@@ -1,0 +1,233 @@
+*Zex level 1 loader file.
+*©Lightsoft (Games) 12Jan99
+*See "Making Zex levels" handbook for details
+*SB 180199
+*Upd 260199
+
+****These level files are keyword based, so lines can appear anywhere (although it hasn't been tested!)
+****All lines not starting with white space or **** are interpreted. The first 4 characters after <cr> are
+****assumed to be the keyword. This is followed by a space and then a list of comma delimited parameters.
+****Some keywords, like LAMN have large parameter lists. You would be advised to print out 3d Engine Design
+****for reference. 
+
+****Into text for player telling what mission is about, what they have to do and how it ends.
+LTXT               PRACTICE MISSION 3 - BOIDS
+LTXT  
+LTXT THE R'MPARIANS HAVE AN IONIC DEVICE CLOSE TO JUPITER.
+LTXT YOUR MISSION IS TO FIND AND DESTROY THIS SECOND IONIC 
+LTXT DEVICE.
+LTXT 
+LTXT RECON SUGGESTS IT IS PROTECTED (AND HIDDEN) BY SYNTHETIC 
+LTXT ALIEN CREATURES KNOWN AS 'BOIDS.' WE HAVE NO INFORMATION
+LTXT AVAILABLE APART FROM CONVENTIONAL WEAPONS DO NOT SEEM
+LTXT TO WORK AGAINST THEM.
+LTXT 
+LTXT 
+LTXT YOUR NAVIGATION EQUIPMENT WILL GUIDE YOU TO THE VICINITY OF
+LTXT THE DEVICE. YOU WILL NEED TO DESTROY THE BOIDS AND THEN THE
+LTXT DEVICE. 
+LTXT 
+LTXT OUR BACK ROOM BOYS SUGGEST SOME KIND OF SPECIAL WEAPON
+LTXT ENHANCER MAY BE NEEDED. WE SUGGEST TRYING ALIEN MOTHERSHIPS.
+LTXT 
+LTXT WE HAVE A MOTHERSHIP IN THE VICINITY; YOU WILL DOCK WITH IT 
+LTXT ON COMPLETION OF THE MISSION.
+LTXT  
+LTXT 
+LTXT               MAY YOUR GOD BE WITH YOU!
+
+**Difficulty rating - not used yet
+DIFF 3
+**Monsters can fire? 1=yes, 0=no (Default is yes)
+**This is a debugging aid - animation and sounds of firing will continue!
+MONF 1
+
+**SCRD zex x,zex y - Zex start coord
+****SCRD -140000,10
+****SCRD 2500,0
+SCRD 320000,0
+
+**TARG - target vector for radar display - this generally points to 'about the right area" - you may want it to point 
+***exactly to the target. Your level is responsible for detecting when zex reaches these points, or does the right thing.
+TARG 302500,-2000
+**DEST - destination nav vector after target is displayed
+**in this case pointing to mother ship
+DEST 182500,-30000
+
+
+****FUEL top,left,bottom,right - specify a refueling rectangle. You can have up to 10 of these fuelling rectangles.
+****In this case it's under one of the guns. Zex handles this internally.
+****FUEL 5000,17000,4500,17500
+
+
+**** Now read the objects from their files into the static OCBs
+****Not that slots 0-19 are reserved. your objects must be loaded starting at slot 20. they do not have to be loaded
+****sequentially.
+**** RFIL filename,4 char id,object slot,coll det flag (0=no),4 char texture code (first 4 chars of texture file)
+****Zex always reads all the textures present so we don't have to load them manually. Use 0000 for no texture, just 0 won't do.
+RFIL ast2.z,AST1,40,1,T002
+
+
+****Phoenix - 4 frames
+RFIL phoenix11.z,MN31,41,1,0000
+RFIL phoenix12.z,MN32,42,1,0000
+RFIL phoenix13.z,MN33,43,1,0000
+RFIL phoenix14.z,MN34,44,1,0000
+
+****type M1 which is called by SGN1
+RFIL m1.z,MON2,45,1,0000
+
+****type M2 which is the big blue one
+RFIL m3.z,MON3,46,1,0000
+
+****load space cow - 4 monsters making 6 frames of animation (see the LAMN for details), with 4 subtly animated textures
+RFIL SC1a.z,MN41,47,1,T11A
+RFIL SC1b.z,MN42,48,1,T11B
+RFIL SC1c.z,MN43,49,1,T11C
+RFIL SC1d.z,MN44,50,1,T11D
+
+****Earth mother ship for end of level - fly here to end. Best to have coldet flag off for this as it has a tractor beam(param4=0)
+RFIL MS01.z,MS01,51,0,LC01	
+RFIL MS02.z,MS02,52,1,TMSA
+
+****Alien mothership
+RFIL MS10.z,MS10,53,1,0000
+RFIL MS11.z,MS11,54,1,0000
+
+****Planets
+****RFIL PNT1.z,PNT1,54,0,EA01	*earth
+
+RFIL PNT6.z,PNT3,55,0,MAR1	*mars
+RFIL PNT7.z,PNT7,56,0,0000	*moon (mars)
+
+RFIL PNT6.z,PNT8,57,0,JU01	*jupiter
+RFIL PNT2.z,PNT2,58,0,0000	*moon
+****type M6 - python
+RFIL m6a.z,MON6,59,1,0000
+
+****Ball object
+RFIL BOID.z,BID1,60,1,BD01
+RFIL BOID.z,BID2,61,1,BD02
+RFIL BOID.z,BID3,62,1,BD03
+RFIL BOID.z,BID4,63,1,BD04
+RFIL BOID.z,BID5,64,1,BD05
+RFIL warper.z,WARP,65,1,WPR1	*warper
+RFIL excalibur.z,EXC1,66,1,EXCA	*excalibur
+
+RFIL ioda.z,IODA,67,1,BOM1
+RFIL ioda.z,IODB,68,1,BOM2
+RFIL ioda.z,IODC,69,1,BOM3
+RFIL ioda.z,IODD,70,1,BOM4
+RFIL ioda.z,IODE,71,1,BOM5
+RFIL ioda.z,IODF,72,1,BOM6
+
+RFIL PNT6.z,PNT6,73,0,EA02	*earth
+
+****Now load the monsters from static to dynamic blocks - See "3D Engine Design" for more details and correct params.
+****The objects are moved from static to dynamic storage and assigned the parameters you set here.
+****The objects are found by the ID (first param) you assigned in RFIL (second param).
+****LMON id,x,y,z,dx,dy,dz,drx,dry,drz,c1,c2,c3,controller ref, shields,mass,class,active when not in view flag,number of missiles,laser
+*LMON AST1,77000,-5000,-30,-30,0,0,0,2,1,0,0,0,25,31170,11000,2,1,0,0
+*LMON AST1,-43000,4000,-27,30,0,0,0,2,1,0,0,0,25,31170,11000,2,1,0,0
+*LMON AST1,-40000,-2000,-32,30,0,0,0,2,1,0,0,0,25,31170,11000,2,1,0,0
+*
+***LMON BOID,2600,0,-20,0,0,0,0,0,0,320,0,1,0,29170,29000,2,0,0,0	**35=boid controller which is move in a circle
+LAMN BID1,BID2,BID3,BID4,0000,0000,4,1,1,300000,0,-20,0,0,0,0,0,1,0,50,0,35,29000,5000,1,1,0,1,0
+LAMN BID1,BID2,BID3,BID4,0000,0000,4,1,1,302500,0,-20,0,0,0,0,0,-4,50,50,0,35,29000,5000,1,1,0,1,0
+LAMN BID1,BID2,BID3,BID4,0000,0000,4,1,1,305000,0,-20,0,0,0,0,0,3,100,50,0,35,29000,5000,1,1,0,1,0
+
+LAMN BID1,BID2,BID3,BID4,0000,0000,3,1,1,300000,-5000,-20,0,0,0,0,0,1,300,50,0,35,29000,5000,1,1,0,1,0
+LAMN BID1,BID2,BID3,BID4,0000,0000,2,1,1,302500,-5000,-20,0,0,0,0,0,-4,250,50,0,35,29000,5000,1,1,0,1,0
+LAMN BID1,BID2,BID3,BID4,0000,0000,3,1,1,305000,-5000,-20,0,0,0,0,0,-1,200,50,0,35,29000,5000,1,1,0,1,0
+
+LAMN BID1,BID2,BID3,BID4,0000,0000,3,1,1,305000,-2500,-20,0,0,0,0,0,-4,150,50,0,35,29000,5000,1,1,0,1,0
+LAMN BID1,BID2,BID3,BID4,0000,0000,1,1,1,300000,-2500,-20,0,0,0,0,0,-1,350,50,0,35,29000,5000,1,1,0,1,0
+
+LAMN IODA,IODB,IODC,IODD,IODE,IODF,3,1,1,302500,-2500,-100,0,0,0,0,0,0,0,0,0,0,1570,10,2,1,0,0,0
+
+LMON MON6,289500,2000,-200,0,0,0,0,0,0,26,0,1,34,2170,1000,1,2,0,1,0,0,0	*
+
+********Load a space cow
+LAMN MN41,MN42,MN43,MN44,MN43,MN42,3,1,1,13000,13000,-200,4,0,0,0,0,0,0,0,0,27,13070,50,1,1,2,0,1
+********Load a space cow
+LAMN MN41,MN42,MN43,MN44,MN43,MN42,3,1,1,130000,130000,-200,4,0,0,0,0,0,0,0,0,27,13070,50,1,1,2,0,1
+
+
+*****Load the mothership - frozen until visible then active
+*****Has four HD lasers to take on your chasers
+*****Mothership is actually made up of three objects so we get individual movements. MS01 is the big round balls, MS02
+*****is the center piece.
+*****BIG WARNING ON MULTIPLE OBJECT OBJECTS _ ONLY ONE SHOULD HAVE A CONTROLLER ASSOCIATED WITH IT!
+*****FOUR HOURS WASTED BECAUSE THE SECOND MS01 HAD IT'S CONTROLLER SET TO 29!
+LMON MS01,780000,100000,0,0,0,0,1,0,0,0,0,0,0,11170,90,0,1,0,3,0,0,0
+LMON MS01,785100,100000,0,0,0,0,-1,0,0,0,0,0,0,11170,90,0,1,0,3,0,0,0
+LMON MS02,782500,100000,0,0,0,0,0,0,0,0,0,0,29,11170,90,0,1,0,3,0,0,0
+
+**Alien mothership
+****LMON id,x,y,z,dx,dy,dz,drx,dry,drz,c1,c2,c3,controller ref, shields,mass,class,active when not in view flag,
+****number of missiles
+
+LMON MS11,282500,240000,0,0,2,0,0,-2,0,0,0,0,0,11170,900,2,2,0,3,0,0,0
+LMON MS10,282500,240000,0,0,2,0,0,2,0,0,0,0,29,11170,900,1,2,0,3,0,0,0
+LMON MON6,280500,230000,-200,0,0,0,0,0,0,26,0,1,34,2170,1000,1,2,0,1,0,0,0	  *
+********Load a space cow
+LAMN MN41,MN42,MN43,MN44,MN43,MN42,3,1,1,200000,1030000,-200,4,0,0,0,0,0,0,0,0,27,13070,50,1,1,2,0,0
+
+
+LMON MS11,782500,-240000,0,0,2,0,0,-2,0,0,0,0,0,11170,900,2,2,0,3,0,0,0
+LMON MS10,782500,-240000,0,0,2,0,0,2,0,0,0,0,29,11170,900,1,2,0,3,0,0,0
+LMON MON6,785500,-230000,-200,0,0,0,0,0,0,26,0,1,34,2170,1000,1,2,0,1,0,0,0	*
+********Load a space cow
+LAMN MN41,MN42,MN43,MN44,MN43,MN42,3,1,1,700000,-1730000,-200,4,0,0,0,0,0,0,0,0,27,13070,50,1,1,2,0,0
+
+********Load a space cow
+LAMN MN41,MN42,MN43,MN44,MN43,MN42,3,1,1,380000,-1000,-200,4,0,0,0,0,0,0,0,0,27,13070,50,1,1,2,0,0
+
+
+LMON MS11,182500,1040000,0,0,2,0,0,-2,0,0,0,0,0,11170,900,2,2,0,3,0,0,0
+LMON MS10,182500,1040000,0,0,2,0,0,2,0,0,0,0,29,11170,900,1,2,0,3,0,0,0
+LMON MON6,182500,900000,-200,0,0,0,0,0,0,26,0,1,34,2170,1000,1,2,0,1,0,0,0	  *
+
+
+LMON MS11,1182500,-1040000,0,0,2,0,0,-2,0,0,0,0,0,11170,900,2,2,0,3,0,0,0
+LMON MS10,1182500,-1040000,0,0,2,0,0,2,0,0,0,0,29,11170,900,1,2,0,3,0,0,0
+LMON MON6,1142500,-900000,-200,0,0,0,0,0,0,26,0,1,34,2170,1000,1,2,0,1,0,0,0*
+********Load a space cow
+LAMN MN41,MN42,MN43,MN44,MN43,MN42,3,1,1,1002000,-630000,-200,4,0,0,0,0,0,0,0,0,27,13070,50,1,1,2,0,0
+
+****Planets
+**Earth
+LMON PNT6,1060500,40000,530000,0,0,0,0,0,0,200,0,1,32,1170,9000,2,0,0,0,0,0,0	**32=planet rotz controller,z inc, every 320 frames
+
+**mars
+LMON PNT3,760500,80000,330000,0,0,0,0,0,0,200,0,1,32,1170,9000,2,0,0,0,0,0,0	**32=planet rotz controller,z inc, every 320 frames
+**Moon
+LMON PNT7,760500,80000,330000,0,0,0,0,0,0,64,0,1,30,1170,9000,2,0,0,0,0,0,0	*roty,every 26 frames, inc=-1
+**Jupiter
+LMON PNT8,300500,1000,45000,0,0,0,0,0,0,200,0,1,32,1170,9000,2,0,0,0,0,0,0	*rotz,every 26 frames, inc=-1
+**Moon
+LMON PNT7,300500,1000,45000,0,0,0,0,0,0,64,0,1,30,1170,9000,2,0,0,0,0,0,0	*roty,every 26 frames, inc=-1
+
+****LMON PNT3,382500,260000,40000,0,0,0,1,0,0,0,0,0,0,1170,9000,2,0,0,0
+**
+********Load a space cow
+****LAMN MN41,MN42,MN43,MN44,MN43,MN42,3,1,1,13000,13000,-200,4,0,0,0,0,0,0,0,0,27,13070,50,1,1,2,0
+****
+********load a heavy defence craft or three
+***LMON MON3,120000,-21000,-200,0,0,0,0,0,0,0,0,0,22,470,100,1,1,0,0
+**
+*****Load Animated objects
+****(LAMN id1,id2,id3,id4,id5,id6,frame rate,control,anim state,x,y,z,dx,dy,dz,drx,dry,drz,c1,c2,c3,controller ref, shields,mass
+*****class,active when not in view flag,number of missiles,laser class
+******number of missiles (not all monsters can fire missiles!)
+**
+LAMN MN31,MN32,MN33,MN34,0000,0000,3,1,1,180000,55000,-200,0,0,0,0,0,0,0,0,0,24,670,100,1,2,2,1,1
+*
+
+****End of file marker
+ZEOF
+
+****End of file
+
+
+

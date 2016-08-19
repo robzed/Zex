@@ -1,0 +1,721 @@
+**DRAFT FOR FEEDBACK**
+
+Zex's 3d engine has to take data specifying objects in 3d space and transform them into a 2d representation on 
+screen. This is how it does it.
+
+Zex is designed as a simple 3d system. As such it's object defintions and control are equally simple. 
+
+
+All objects in Zex are representable as objects built from simple (i.e. convex) polygons (Whereas General Polys
+can be any shape, and have holes in them. Zex does not use these types). It is envisaged that a lot
+of basic Zex objects can be dynamically generated rather than being pre-built. For example, functions called
+cube, tube, sphere, pyramid,  etc. can be called to generate simple objects. This way we can define the core
+background (i.e. the rather large spaceship we are flying over) with very little data.
+
+To speed up matters, the internal representation of objects is done with an extended Fantasy object definition.
+
+There are static and dynamic defintions of objects. The static definition is the definition fed into the game.
+The dynamic definition is the object defintion when running in the game.
+
+
+
+-------------------------------------------
+
+Static Definition of a simple object.
+
+Let's take a cube. The cube is represented as 6 polygons, and each polygon 
+has a set of attributes associated with it. Simple objects are defined in object coordinates - that is 
+all points are relative to the object's center point.
+
+So, our simple object looks like this (All values are 32 bit unless noted otherwise):
+Oreference: a unique reference for this object
+Object_name:	char [32] - space for 32 characters that define this object's name (mainly for debug purposes - see the object
+loader below).
+Onumber_of_polygons - Uint32 - in this case 6
+
+List of points - all points in the object are listed in three arrays as single floats: x,y,z
+Ox: point 1 x, point 2 x etc
+Oy: point 1 y, point 2 y, etc
+Oz: point 1 z, point 2 z etc
+
+The points are defined relative to 0,0,0 which is the object's central point, but when "owned" by an object are transformed
+and rotated relative to the objects 0 point. This allows accurate model creation.
+
+Connection array. This list specifies, for each simple polygon which points are used and how they connect.
+Note that we do not define the backface of a polygon - this is auto generated at object load time if two_sided is set.
+For example, the frontmost face of the cube could be specified as:
+4,0,1,1,2,2,3,3,0,colour,texture,trasnlucency,special1,special2
+which means: there are 4 connections: point 0 to point 1, point 1 to point 2, point 2 to point 3, point 3 to point 0		 	 
+(Spcifying the last connection, whilst wasteful of memory should increase processing speed).
+The colour: is colour of the plyogon (0-255 as a 32 bit value)
+The texture: See Dynamic representation.
+The translucency: is a value 0-255 where 0 is not translucent, and 255 is transparent as a 32 bit value.
+special 1 and 2 can be used to specify some other effects.
+two_sided: If set, the polygon has two sides, else 1. If set, the reverse side is auto_generated into the dynamic structure.
+
+This data is repeated for all polygons that make up the object.
+
+Finally come the rotation, movement and flags that affect the whole object:
+rotx: single float 0-6.28 rads or 359 degrees. Rotation in x of object
+roty: same as for x. Rotation in y of object
+rotz: same as for x. Rotation in z of object
+rotdx: delta x rotation
+rotdy: delta y rotation
+rotdz: delta z rotation *These are for objects which have no other direct control and auto spin around one or
+more axis.
+cull: If set, the polygons in the object are eligible for back face culling if the poly's two_sided is set.
+If not set, and two_sided is not set then polys will appear to have two sides even if they do not. 
+number_owned:	number of objects owned by this object
+Oowned_list: Object references that are part of this object - a list of 32 bit references.
+
+The Oreference and Oowned_list fields are important to the creation of complex objects and heirarchical control
+of objects. 
+For example, when this object rotates, the program can also rotate any owned_list objects.
+When this object is removed, the program removes all owned_list objects AROUND THIS OBJECTS' ROTATION POINT.
+
+Now we don't want to be searching for objects, so the owned list in the dynamic state contains ptrs to the objects
+rather than references.
+
+------------------------------------------------
+
+Dynamic definition of an object.
+
+
+Objects are transformed from their static definition into the dynamic definition under control of some level loader/filter routine.
+The objects are transformed into an array called world_objects.
+When transformed the points are transformed from object coord to world coord, thus moving the object to it's correct
+place within the world. Note that all control variables are now at the start of the definition for quick acces.
+
+Orotx: single float 0-6.28 rads or 359 degrees. Rotation in x of object
+Oroty: same as for x. Rotation in y of object
+Orotz: same as for x. Rotation in z of object
+
+Orotdx: delta x rotation
+Orotdy: delta y rotation
+Orotdz: delta z rotation     *These are for objects which have no other direct control and auto spin around one or
+                              more axis. These are added to rotx,y,z even if they are zero to save compares.
+
+Omovedx:	delta x movement
+Omovedy:	delta y movement
+Omovedz:	delta z movement *These are for objects which have no other direct control and auto spin around one or
+                              more axis. These are added to all the points even if they are zero to save compares.
+
+
+cull:      If set, the polygons in the object are eligible for back face culling if the poly's two_sided attr is set.
+           If not set, and two_sided is not set then polys will appear to have two sides even if they do not. 
+
+
+Oworldx: The objects current x coord in the world - passed in from caller.
+Oworldy: The objects y coord in the world
+Oworldz: The objects z coord in the world
+
+Visible: Is the object visible (from fov calcs - this drastically speeds up processing). Initially set to false so
+object is not visible. (this way objects can be defined "over the horizon" without being visible for one frame,
+the fov calcs will enable it as it comes into view, and disable it as it goes out of the fov).
+
+Remove_object: If 1, then this object is removed from the object list on the next frame. Can be used by monster controllers to
+tell the system when to remove an object. (i.e. a monster has been destroyed by player's cannon fire or kamikazee tactics).
+
+
+control: A controller reference for this object. For example, 1 might mean this object moves back and for between two points,
+2 might mean monster controller 1 should process this object etc.
+
+**These next four can be used for various things to do with the controller - for example if a simple controller, control_use_1
+might hold how many times this object has been shot - more complex controller might put a ptr to a data structure here.
+control_use_1: 32 bit value private to the controller - could be a pointer it uses.
+control_use_2: Ditto.
+control_use_3: Ditto
+control_use_4: Ditto.
+
+OReference: The owner of this object - if top of heirarchy, this is zero.
+**Now the object itself derived from static definition.
+number_owned: is copied from static definition
+immediate_children: (Compare to list of references in static def.).
+number of polygons - Uint32 - this is computed from two_sides
+
+Ptr to List of points - all points in the object are listed in an array of _3D as floats.
+ptr to polys
+(poly)
+Ptr to Connection array. This list specifies, for each simple polygon which points are used and how they connect.
+Face_normal: (Xn,Yn,Zn - float32) - see *note 1 below.
+The colour: is colour of the plyogon (0-255 as a 32 bit value)
+Light_value: see *Note 2.
+The texture: Could specify a texture bitmap to be used for this plane or an actual texture
+code used in conjunction with Light_value. See *Note3
+The translucency: is a value 0-255 where 0 is not translucent, and 255 is transparent as a 32 bit value.
+special 1 and 2 can be used to specify some other effects.
+p_visible:	set or cleared by hidden surface removal.
+eng_culled: Set by engine if it determines plane is too far out of line of sight for backface culling to be
+            "visually" effective. i.e. if culled it could lead to planes missing or flickering (yuck!).
+			(Yeah, this is a true stufrig variable but saves much maths (i.e. clock cycles)).
+
+(Two_sided has gone (been processed) by the time we get here)
+(end poly)
+
+This data is repeated for all polygons that make up the object.
+
+
+*Note1: For every polygon, this is calculated as the normal of the face. 
+               Xn:=(Z2-Z1)*(Y3-Y1)-(Y2-Y1)*(Z3-Z1);
+               Yn:=(Z2-Z1)*(X3-X1)-(X2-X1)*(Z3-Z1);
+               Zn:=(Y2-Y1)*(X3-X1)-(X2-X1)*(Y3-Y1);
+               { Normalize the normals }
+               Module:=Sqrt(Sqr(Xn)+Sqr(Yn)+Sqr(Zn));
+               Xn:=Xn/Module;
+               Yn:=Yn/Module;
+               Zn:=Zn/Module;
+
+(A vector perpendicular to the face indicating (ultimately) whether the face is facing the camera or not
+which is an improvement on the original Fantasy bfculling). We calculate angle between camera and face_normal - if
+in the range 90-270 degrees, it is visible.
+This normalised  vector is rotated as the poly is rotated so we do not have to keep 
+calculating the normal of the poly for backface culling effectively cuttimg out much overhead on the culling.
+It is a mistake to believe that if camera is fixed at some +z then the sign of the normals z component tells us whether 
+it is visible or not! (objects to edge of the screen for example).
+
+It *may* be quicker to say that if an object is offset by more than a few degrees from camera vector, then do not
+backface cull it!
+
+
+*NOTE2:
+     CosineOfAngle=(Light.X*Poly.Xn)+(Light.Y*Poly.Yn)+(Light.Z*Poly.Zn);
+     If CosineOfAngle>=0 Then Color=0
+     Else Color=-Round(CosineOfAngle*16);
+
+*NOTE3: Texture values. Values less than or equal to 1024 specify a basic texture as follows
+Values greater than 1024 specify a bitmap to use.
+0: Not reflective at all.
+1024: Totally reflective (takes the colour of the light source) irrespective of the colour of the poly.
+(Obviously the transparancy has an affect here too).
+
+--------------------------------
+So, how does it work...
+
+Object Loader.
+
+Lets take a simple example of a single cube. The object is inserted into world_objects as follows: 
+1. rot, rotd and cull are simply copied from the static definition unless the caller provides override
+values. current_rotx is copied from rotx, same for y and z.
+2. worldx,y,z are provided by the caller and are copied into world_objects for run-time use.
+3. visible and remove are set to false unless alternate values are provided by the caller.
+4. control is copied from the object definition unless the caller provides an alternate controller value.
+5. control_use 1,2,3,4 are set to zero.
+6. OReference is provided by the caller and copied.
+7. The x,y,z points are copied.
+8. The connection lists are copied. If a poly's two_sided flag is set, the reverse connection list is also
+generated and the number of poly's incremented.
+9. Owned list is generated as a list of ptrs to the objects. This !means! that all child objects must be 
+inserted before this parent object. If a child is not found the ptr is set to zero and a warning generated
+along the lines of Object "Object_name could not find child x".
+
+Basically, world_objs is the OCB's that control objects.
+
+
+--------------------------------
+
+RunTime.
+We now have objects linked up in world_array. The player ship is ALWAYS at 0,0,0.
+The game specifies ship_dx,dy and dz. These are the ship velocities along these axis.
+Axis as follows:
++x is right
++z is in to screen
++y is up.
+
+Polys are defined with points going anti-clockwise - i.e. we are using
+a left handed system.
+
+Now, the (simplified - i.e. non heirarchical object processing) runtime looks like this:
+
+  1. Initialize all the local coordinates of every vertices - copy to world_objs as above
+     whilst trasnforming their real coords from local to local plus world x,y,z's.
+
+----
+loop:
+world) transform the object into the world and rotate it:
+  0. If object is "on" then
+  1. Copy relevant poly data into world_polys[] from OCB and update global poly count.
+  (This includes a ptr to this OCB so subsequent processing can set flags in said ocb).
+  
+  2. Set the global matrix to an identity matrix. The global matrix is defined in 3d_top.int
+  3. Scale the global matrix with the scaling of the object
+  4. Rotate the global matrix with the angles of the object
+  5. Translate the global matrix with the position of the object
+  6. Multiply the local coordinates by the global matrix to get the world
+     coordinates and copy to world_points (an array of points)
+  6a). Copy the connection list into world_connex updating for sequential point count (an array).
+  
+view). transfrom the world points about the camera (this is all done in world_points[]
+  7. Set the global matrix to an identity matrix
+  8. Translate the global matrix with the negative position of the viewer
+  9. Rotate the global matrix with the negative angle of the viewer
+ 10. Multiply the world coordinates by the global matrix to get the aligned
+     coordinates
+
+At this point, the points are placed in an array of points called
+output_points.
+We then copy the points offset into another array of ints called points_offsets,
+this allows us to correctly locate the required points offset for each object
+in future processing.
+
+ 11. keep going till all polys are done.
+ 
+c). Backface cull, poly clip and light calcs for each poly.
+
+d). Pers
+ 11. Project the aligned coordinates to get the screen coordinates
+
+---------------------------------------
+OBJECT CONTROL
+At any one time, objects are being created and destroyed on a continual 
+basis. Here;s how the basic object control works.
+
+At the start of a level, all onjects for that level are loaded into the static
+definitions:
+1. The points are copied into points list pointer. The connections are
+copied into connections_list_ptr. The points are local to this object, and
+are transformed out of this array into the world array. The connections, again
+are local. These are never copied - the runtime works from these points and 
+connections.
+2. The polyys are copied in Spoly_list_ptr.
+3. The objects are copied into ocb_Sptr.
+
+To load an object:
+1. the object is copied from ocb_Sptr to ocb_ptr and various
+parameters are altered, such as worldx,y,z etc.
+2. The polys are copied into poly_list_ptr. Each poly is of a fixed size, but objects
+have different number of polys!When we kill an object, how do we kill the polys? 
+The only fast way is by stating that an object may have a maximum number of polys,
+and assigning poly space in slots of this size. Currently a poly is 56 bytes in size,
+so if we said that each object could have a max of 50 polys, then each active object
+would take 3k in the poly space. We allow 500 active objects at any one time,
+so that's an active object poly array of about 1.2 Megs.
+
+Explosions
+ÑÑÑÑÑÑÑÑÑ-
+Explosions are simply a case of taking every single poly in the object amd making new
+objects out of them. This is a very processor intensive task, but requires little
+code and looks good. This code can be found in explode.c
+
+
+Background graphics.
+____________________
+Are basically tiles layed out in columns viz:
+xxxxxxx ->
+xxxxxxx ->
+xxxxxxx ->
+etc.
+
+Part of the data required for a level is a 2d map specifying the bg objects
+to use. BG objects are identified by a four character sequence - such as ABCD
+- this four character sequence is the first four characters of the objects
+file name. In the object structure (ZObject) it is called Oid.
+
+Each tile really has two objects, one low level (0z) and one high level (-100 z) - 
+closer to the camera. Each tile is 2000x*2000y in size.
+
+Supposing we have three low level bg objects:
+B001,2,3
+and two high level objects
+H0001,H002
+
+The first column of the 2d map could look like this:
+B001,B002,B003,0000,z,H001,z,0000,z
+bg1  bg2  bg3  none hl1  none
+
+The high level objects have a height associated with them that specifies the z coord
+for the object.
+The first line of the file specifies how many objects are in a cloumn and how many
+columns make up the map,i.e.
+3,100 - objs_in_column, number_of_columns
+
+Items are separated by commas. Lines starting with * are comments.
+ 
+These map files are extensioned with ".zmp".
+Ultimately these will be resources within a level file.
+
+This .zmp is compiled by zex into this format called the cmap:
+l1,l2,etc, low level objects for this column
+h1,height,h2,height,h3,height - high level objects for this column 
+Where l1,2... and h1,2... are pointers to the static object definitions.
+Thus each column requires objs_in_column*3 locations
+The current column can be found assuming that the map starts at x=0:
+player_x/ 
+
+
+The map loader when compiling the cmap will throw an error if an object can't be 
+found in the static defs.
+
+BG objects are inserted into the OCB's with a control value of BGobj. The controller 
+for these examines the object location, and if not within the play area it is killed.
+A new object is then loaded up "in front" of the player according to the cmap.  
+
+Not all levels need hace a bg map.
+
+
+Level Loader File - 12/1/99 SB
+ÐÐÐÐÐÐÐÐÐÐÐÐÐÐÐÐÐ
+
+This file tells zex how to set up a given area of "space". it contains refernces
+to the monsters and controls, the bg map, where the ship starts -- anything that is 
+necessary.
+These level files are given the extension "ZLV"
+
+
+All lines must start with a four character identifier as detailed below.
+All parameters to a command must be placed on the same line as the command.
+All numbers are floating point unless specified otherwise.
+Lines may appear in any order. File must end in an ZEOF command.
+
+****
+Comment line - ignored by loader.
+
+DIFF
+Dificulty rating of the level - a floating point number between 1 and 10 (fractional part not used and rounded)
+e.g.
+DIFF 5
+
+SCRD
+Ship starting coords as x,y as decimal floating point numbers separated by commas.
+e.g.
+SCRD 0,0
+
+
+RFIL
+Object to be read and loaded. Filename followed by 4 char ID followed by object slot followed by collision detection 
+flag (0=no,1=yes, sphere, 2=box, 3=sphere + box), followed by four char texture code (0000=no texture). Note spaces are not allowed in file names. e.g.
+ZFIL monster1.z,MON1,1,1,0
+**Note that there is NO need to load Zex itself, it is loaded automatically.**
+
+
+LMON
+Load a non animated monster.
+Params:
+1. Object ID as loaded by RFIL
+2. start world x
+3. start world y
+4. start world z
+5. movement delta x
+6. movement delta y
+7. movement delta z
+8. delta_rot_x
+9. delta_rot_y
+10. delta_rot_z
+11. controller value 1
+12. controller value 2
+13. controller value 3
+
+14. Controller ref (see objects_controls.h for details)
+15. shield value
+16. mass.
+17. object class: 0=goodies, 1=baddies object, 2=scenary
+18. Control state: 1 object is controlled when not visible. 0, object is frozen when not visible. 2, object is frozen
+    until visible and then made state 1. 3 object is frozen - period. Level controller responsible for it.
+19  Number of missiles
+20. Laser category - 0,1,2,3
+21. Has roll =0=no, 1=yes
+22. unique ID - used by for example door switches to find the right door
+23. rot z
+
+
+LAMN
+Load animated monster.
+Params:
+1. Object ID 1 as loaded by MFIL
+2. Object ID 2 as loaded by MFIL - use 0000 for no frame
+3. Object ID 3 as loaded by MFIL - ditto
+4. Object ID 4 as loaded by MFIL - ditto
+5. Object ID 5 as loaded by MFIL - ditto
+6. Object ID 6 as loaded by MFIL - ditto
+7. Frame rate.
+8. Animation control. If zero, animation stops at end of cycle. If 1, animation loops round/
+9. Animation state. 1 active, 0=inactive (activated by controller)
+10. start world x
+11. start world y
+12. start world z
+13. movement delta x
+14. movement delta y
+15. movement delta z
+16. delta_rot_x
+17. delta_rot_y
+18. delta_rot_z
+19. controller value 1
+20. controller value 2
+21. controller value 3
+22. Controller ref (see objects_controls.h for details)
+23. shield value
+24. mass.
+25. object class: 0=goodies, 1=baddies object, 2=scenary
+26. Control state: 1 object is controlled when not visible. 0, object is frozen when not visible. 2, object is frozen
+    until visible and then made state 1.
+27  Number of missiles
+28. Laser category - 0,1,2,3
+29. Has roll =0=no, 1=yes
+
+BMAP
+Load a bg object file. A bg object file is simply a container for a load of objects making up a larger object. 
+The objects must already be loaded from the level file. The first parameter is the filename of the loader
+file for the object. The second and third is the x and y coords.
+e.g.
+BMAP L1.zmp 0,-4000
+
+FUEL
+Specify a 2d rectangle (Mac - top, left, bottom, right) where refueling will take place. When zex is over this rectangle it will 
+be refuelled.
+FUEL -4000,32000,-3000,33000
+
+
+
+
+
+ZEOF - end of file.
+
+
+SCRIPTING - SB 13/1/99
+A script is a simple set of instructions that can control certain aspects of a level. A level script is run at a lower 
+frame rate than the game. The script is not designed for precision control of timing events.
+There is no guarantee that a script can be considered atomic - that is it is interuptable. Individual keywords and 
+statements within a script are guaranteed to be atomic.
+
+A script can contain an optional DEATH label. The DEATH label is where the script is executed when a monster dies.
+A special integer variable MDEAD contains the 4 char ID of the monster that has just been destroyed. See examples.
+
+Ten 32 bit integer variables are available as
+A,B,C,D,E,F,G,H,I,J,K
+Two 3d type vars are available as 3d_1 and 3d_2 - these have the members x,y,z as floating point values
+and are accessed as 3d_1.x etc.
+Two rectangle type vars are available as rect_1 and rect_2 - these have the members of top, left, bottom, right
+as per a typical Mac rect but the individual members are floating type..
+
+Assignment of vars is only possible between similar types or sub-types. Type conversion from float to int is
+automatic. For example
+let rect_1=rect_2 is fine.
+let rect_1=A is not fine.
+let rect_1.top=A is fine.
+
+Numbers may be specified as:
+Integer - decimal and 'xxxxx'
+Floating - decimal only
+
+Read Only vars
+Time - returns a non-fractional and linearly incrementing number.
+
+The scripting keywords are:
+endlevel - ends the current level. A level also ends when zex is destroyed.
+if var=var then
+if var=number then
+let var=var
+let var=number
+
+GetZex - returns Zex's current coords. E.G.
+3d_1=GetZex
+
+PinRect - is a point in a rectangle. Returns 0 or 1 E.G.
+let A=PinRect x,y,rect_1
+
+CountMon - count the number of active monsters with a given ID. Returns a number between 0 and max_dyn_slot E.G.
+let A=CountMon MN31
+(For animated objects use the id of the first frame)
+
+DEATH: The label of the death entry of a script. A special variable MDEAD contains the ID of the just killed monster.
+Follows the ESPT keyword.
+
+LAMN and LMON as per the level loader will load a monster/object in the dynamic OCB's as per the loader - when used in
+a script variables can replace parameters.
+
+TEXTURES (OBSOLETE _ TO BE WRITTEN UP) SB
+ÐÐÐÐÐÐÐÐ
+Are loaded in at the load_dyn_object function. Part of the parameter block associated with this function
+contains either a pointer to the texture OR 0 for no texture. The uv part of a point will be -1 for no texture
+for a given poly.
+
+
+ANIMATION (Obsolete) To Be Written Up. SB.
+ÐÐÐÐÐÐÐÐÐ
+
+This is the extremely tricky one because:
+a) The MeshWork file format has no provision for it.
+b) It involves dynamically switching objects in and passing the relevent data between objects
+c) Linking objects together to form an animation sequence, which is related to a).
+
+Plan 1.
+We get the level loader to load in the objects, setting an anim flag in the dynamic objects.
+The anim bit is actually five members of a dynamic object as follows:
+
+ 0 - animation control. If 1 the animation resets to first frame at end of sequence.
+     If 2, animation reverses. anim_control
+
+ 1 - Animation direction - 1 fwd, -1 backwards. 0 = stopped. anim_direction
+ 
+ 2 - Anim frame rate - how often the objects are switched. anim_frame_rate
+ 
+ 3 - Anim counter - used in conjunction with anim_frame_rate. anim_counter
+ 
+ 2 - next frame (dynamic objects slot number) or -1 for last frame. anim_next_object
+
+ 3 - previous frame (dynamic object slot number) or -1 for first frame. anim_previous_object
+
+ 4 - active animation frame. If 1 this is the active frame of an animated object. anim_active_object.
+Engine examines this one to see whether the data needs to be passed through 3d stuff.
+
+The loader is mainly responsible for setting these up.
+
+The monster controller associated with this object is responsible for managing the animation.
+It has find the next object in the sequence,  pass on all current data to the next object, and disable the 
+current object. A new function called setup_next_anim_frame is used.
+
+kill_it is responsible for killing all frames of an animated object. Once killed these objects are eligible
+for overwriting as per a normal object.
+
+Zex determines if an object is an animated object by the sstate of the previous and next frame flags. If both
+are -1 it's not animated.
+
+
+Docking/Undocking etc.
+ÐÐÐÐÐÐÐÐÐÐÐÐÐÐÐÐÐÐÐÐÐÐ
+When we dock with something we need to load in the objects describing the docked scene.
+Because one can undock, we simply can't ditch the world else we would lose it's state.
+We also can't save the world because pointers to polys are stored in teh OCB's.
+
+What we have to do is:
+
+Make a note of all objects that are in use in a local array called world_objects_in_use_state.
+
+Next we load in the objects making up the current scene - these will be loaded above the world
+objects. We make a note of their slots in docked_objects_start.
+
+Then we set the in_use flag of all the world objects to zero (i.e. from zero to docked_objects_start), but we 
+do not kill the polys slots, thus rendering the objects invisible to the engine.
+
+Now we can render the frame.
+
+To undock, we first kill all the objects making up the docked scene.
+The we re-enable all the world objects, then eject the ship and render as per normal.
+
+
+Controllers
+ÐÐÐÐÐÐÐÐÐÐÐÐ
+In the game proper we need to give NPC's things to do. If we just blast them out of mother
+ships the only thing they'll do is run in circles looking for things to kill.
+
+We have just one controller for the game proper - NPC_controller
+
+It needs to know what to do when not fighting and when fighting. NPC's can be one of two
+types - travellers or fighters. 
+
+Fighter
+ÐÐÐÐÐÐÐ
+A fighter roams an area looking for something to kill. It does this by running in a large
+circle looking for things to attack. It will not attack motherships.
+
+Traveller
+ÐÐÐÐÐÐÐÐÐ
+This NPC travells from one mothership to another, when it gets there it will request 
+dock, and when docked will add the that motherships quota of ships,
+
+Guard
+ÐÐÐÐÐ
+This NPC simply sits somewhere and guards something. If anything nasty comes into it's 
+field it will attack that something and then return to guarding.
+
+
+Common Control
+ÐÐÐÐÐÐÐÐÐÐÐÐÐÐ
+There is one controller. It looks at the attack_what field and if set and the attack_what
+is alive goes runs the combat routine.
+The controller works in conjunction with the laser_class, gun_class and number of missiles
+and class attributes.
+Another attribute is aggressive - if set the controller will always try to find something
+to attack. This would be set for fighter and guard but not for traveller.
+
+Flow
+ÐÐÐÐ
+do avoid
+check attack - if set run fight.
+If not set decode type - fighter, traveller, Guard and run the right routine.
+
+Shields are decoded from the shields_class as follows:
+1 - not rechargeable
+>1 recharge rate per frame (recharges to original_shield_value)
+
+If shields drop below 300 the NPC will try to run if it has rechargeable shields.
+
+If shields below 50 NPC will try to eject.
+
+
+Time_Out
+ÐÐÐÐÐÐÐÐ
+All NPC's use this field to decide when to dock with a mothership - it's
+incremented every frame and when gets to a certain point the NPC will make its
+class TRAVELLER, find the nearest mothership and try to dock.
+
+
+
+Mothership Memory Management
+ÐÐÐÐÐÐÐÐÐÐÐÐÐÐÐÐÐÐÐÐÐÐÐÐÐÐÐÐ
+Motherships need more memory than the OCB allows. So a simple memory manager dishes out 
+and releases blocks of memory for motherships. A ptr in the OCB - mship_ptr is filled
+with a valid address or 0.
+
+The motherships controller examines its mship_ptr and if zero calls
+mship_get_mem and then inits the structure
+mship_get_mem returns either a good ptr or 0 if one can't be found. It does a simple
+serial search.
+
+kill(it) examines mship_ptr of all objects being killed and calls mship_release_mem
+if the ptr is set.
+
+The structure of the motherships memory block is defined in 3d_structured_def.h
+
+
+Galactic Map
+ÐÐÐÐÐÐÐÐÐÐÐÐ
+Has:
+800 slots for motherships.
+400 slots for planets
+400 slots for other bg scenary
+100 slots for specials - such as asteroid fields, special objects, space cow
+herds, warpholes etc.
+
+These are split over four quadrants evenly.
+
+
+Generation
+First 400 planets are randomly generated.
+Next the 700 motherships are filled according to their supply routes
+Finally we generate the 400 bg objects and poke in any manual items.
+
+When motherships are scrolled out of the active OCB's we save their info in the galactic map.
+We also save up to 50 ship positions out of the current OCB's when saving the game along with Zex's
+state.
+
+
+Scales
+ÐÐÐÐÐÐ
+Each quadrant covers about 50e6 units. The upper left of the galaxy is at 0,100e6;
+hence the galaxy extends to 100e6 in x and to 0 in y.
+
+The quadrant is split into 10 by 10 sections; each section covering 5e6 square units.
+Objects within this area are loaded into the active OCB's. Self generated objects
+should be loaded away from the edges of the section. When zex crosses a section we
+unload the active OCB's and load in the new ones. An exception to this are any ships
+within the immediate vicinity of Zex (i.e. long range radar scan) - these are left in
+the active OCB's.
+
+When a player moves into a new section we have to populate it not only with the items from the 
+galactic map but also with ships derived from the motherships in that section.
+
+
+Control
+ÐÐÐÐÐÐÐ
+A task in map_control (run_map_control) runs every 76 frames. It checks zex's position
+against the map and then does the right thing.
+
+
+Planet Names
+ÐÐÐÐÐÐÐÐÐÐÐÐ
+Are generated from a random seed.
+Function gen_name takes a 32 bit seed and a pointer to a c string.
+
+
+
+

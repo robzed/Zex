@@ -1,0 +1,8 @@
+Creating Zex objects
+行行行行行行行行行行
+Zex accepts files in the Mesh format. To create a Zex object,
+first create an object in a 3d program that can output in DXF format.
+There are zillions of these things about. Import the 3DMF file into meshwork,
+and save as a meshwork file. Rename the file Obj0.z and place next to and run Zex
+to see it.
+Meshwork can also be used as a basic creation/editor tool.

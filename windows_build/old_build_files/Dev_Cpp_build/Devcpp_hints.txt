@@ -1,0 +1,18 @@
+Zex with Devcpp
+===============
+
+Put the file 'Zex.dev' into the same folder as the 'Code' folder in order to build. It will build into the 'LSG - Zex' subdirectory.
+
+If you also put 'SDL.dll' and 'SDL_mixer.dll' into the 'LSG - Zex' folder then you can also debug or run Zex.
+
+Regards,
+Rob 5-Feb-2006
+
+-----
+Whilst this does work to build, I had problems with debugging on the second time I copied the stuff across (after I moved the .dev project file back to the PC). 
+
+Therefore, change the "Executable Output Directory" in the "Build Options" in Dev-C++ to nothing and then move the code and project file to the LSG-Zex directory.
+
+Regards,
+Rob 2-Mar-2006
+-----

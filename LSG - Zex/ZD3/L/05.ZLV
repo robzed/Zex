@@ -1,0 +1,221 @@
+*Zex level 4 loader file.
+*©Lightsoft (Games) 12Jan99
+*See "Making Zex levels" handbook for details
+*SB 180199
+*Upd 260199
+
+****These level files are keyword based, so lines can appear anywhere (although it hasn't been tested!)
+****All lines not starting with white space or **** are interpreted. The first 4 characters after <cr> are
+****assumed to be the keyword. This is followed by a space and then a list of comma delimited parameters.
+****Some keywords, like LAMN have large parameter lists. You would be advised to print out 3d Engine Design
+****for reference. 
+
+****Warphole
+
+****Intro text for player telling what mission is about, what they have to do and how it ends.
+LTXT                      ZEX
+LTXT  
+LTXT  THIS TRAINING MISSION SIMULATES A REAL ENVIRONMENT.
+LTXT  
+LTXT  THERE ARE TWO EARTH AND TWO R'MPARIAN MOTHERSHIPS AVAILABLE,
+LTXT  RUNNING SIMULATED TRADING AND PRODUCTION FACILITIES.
+LTXT  
+LTXT  USE THE OPPORTUNITY TO OBSERVE ALIEN SHIP BEHAVIOUR, DOCKING 
+LTXT  PROCEDURES,TRADING AND COMBAT.
+LTXT 
+LTXT  BOTTOM RIGHT IS A SIMULATED WARPHOLE. THIS TRAINING SESSION
+LTXT  WILL END WHEN YOU ENTER IT.
+
+**Difficulty rating
+DIFF 3
+**Monsters can fire? 1=yes, 0=no (Default is yes)
+**This is a debugging aid - animation and sounds of firing will continue!
+MONF 1
+
+****Nightime mission, LITE is the opposite
+*LITE ON
+**SCRD zex x,zex y - Zex start coord
+****SCRD -140000,10
+****SCRD 2500,0
+SCRD 4460000,0
+SCRD 5000000,-300000
+**TARG - target vector for radar display - this generally points to 'about the right area" - you may want it to point 
+***exactly to the target. Your level is responsible for detecting when zex reaches these points, or does the right thing.
+TARG 5010000,-400000
+**DEST - destination nav vector after target is displayed
+**in this case pointing to mother ship
+**Dest is dynamically calculated on this level
+DEST 182500,-30000
+
+
+****FUEL top,left,bottom,right - specify a refueling rectangle. You can have up to 10 of these fuelling rectangles.
+****In this case it's under one of the guns. Zex handles this internally.
+****FUEL 5000,17000,4500,17500
+
+
+**** Now read the objects from their files into the static OCBs
+****Not that slots 0-19 are reserved. your objects must be loaded starting at slot 20. they do not have to be loaded
+****sequentially.
+**** RFIL filename,4 char id,object slot,coll det flag (0=no),4 char texture code (first 4 chars of texture file)
+****Zex always reads all the textures present so we don't have to load them manually. Use 0000 for no texture, just 0 won't do.
+*RFIL ast2.z,AST1,20,1,T002
+
+**** ampersand means not lighting effected (e.g. source of light)
+RFIL	warphole_mouth.z,WH1Z,40,0,WHT1
+RFIL	warphole_trunk.z,WH2&,41,0,WHT2
+RFIL	z_wh1.z,ZEX1,42,0,T010	*more complex zex
+RFIL	z_wh2.z,ZEX2,43,0,T010	*more complex zex
+RFIL	shoot1.z,SHT1,44,0,WHT2	*shooter 1
+RFIL	shoot1.z,SHT2,45,0,GRN1	*shooter 2
+RFIL	star.z,STAR,46,0,0000	*star
+RFIL m1.z,MON2,47,1,0000
+RFIL BAL1.z,BLL1,48,0,BAL1
+RFIL PNT6.z,GALA,49,0,GAL3		*Galaxy
+RFIL rng1.z,RING,50,0,RAR1		*yeloow ring
+****Alien mothership
+RFIL excalibur.z,EXC1,53,1,EXCA
+
+****load space cow - 4 monsters making 6 frames of animation (see the LAMN for details), with 4 subtly animated textures
+RFIL SC1a.z,MN41,54,1,T11A
+RFIL SC1b.z,MN42,55,1,T11B
+RFIL SC1c.z,MN43,56,1,T11C
+RFIL SC1d.z,MN44,57,1,T11D
+RFIL bar1.z,BAR1,58,1,0000
+RFIL bar2.z,BAR2,59,1,0000
+****Earth mother ship for end of level - fly here to end. Best to have coldet flag off for this as it has a tractor beam(param4=0)
+RFIL MS01.z,MS01,60,0,LC01	
+RFIL MS02.z,MS02,61,1,TMSA
+
+
+RFIL m6a.z,MON6,62,1,0000	*python
+
+****Wingman
+RFIL m7.z,FALC,63,1,0000	*Falcon
+RFIL warper.z,WARP,64,1,WPR1	*warper
+
+****Phoenix - 4 frames
+RFIL phoenix11.z,MN31,65,1,0000
+RFIL phoenix12.z,MN32,66,1,0000
+RFIL phoenix13.z,MN33,67,1,0000
+RFIL phoenix14.z,MN34,68,1,0000
+
+****Alien mothership
+RFIL MS10.z,MS10,69,1,TP02
+RFIL MS11.z,MS11,70,1,0000
+
+RFIL m3.z,MON3,71,1,0000
+RFIL ashut2.z,ASH1,72,1,0000
+RFIL m3a.z,GRN1,73,1,0000
+RFIL shut2.z,ESH1,74,1,0000
+
+
+****Now load the monsters from static to dynamic blocks - See "3D Engine Design" for more details and correct params.
+****The objects are moved from static to dynamic storage and assigned the parameters you set here.
+****The objects are found by the ID (first param) you assigned in RFIL (second param).
+****LMON id,x,y,z,dx,dy,dz,drx,dry,drz,c1,c2,c3,controller ref, shields,mass,class,active when not in view flag,number of missiles,laser
+
+LMON WH1Z,5010000,-400000,0,0,0,0,0,0,-1,0,0,0,0,31100,11000,2,1,0,0,0,0,0
+LMON WH2&,5010000,-400000,0,0,0,0,0,0,-1,0,0,0,0,31100,11000,2,1,0,0,0,0,0
+
+**These bars are positioned by the level controller
+*LMON BAR1,4950000,-400000,300,0,0,0,0,20,0,0,0,0,0,31100,11000,2,1,0,0,0,0,0
+*LMON BAR2,4950000,-300000,300,0,0,0,0,-20,0,0,0,0,0,31100,11000,2,1,0,0,0,0,0	 *1 above
+*LMON BAR2,4950000,-300000,300,0,0,0,0,-20,0,0,0,0,0,31100,11000,2,1,0,0,0,0,0	 *1 below
+*LMON BAR1,4950000,-400000,300,0,0,0,0,20,0,0,0,0,0,31100,11000,2,1,0,0,0,0,0	 *2 above
+*LMON BAR1,4950000,-400000,300,0,0,0,0,20,0,0,0,0,0,31100,11000,2,1,0,0,0,0,0	 *2 below
+*LMON BAR2,4950000,-300000,300,0,0,0,0,-20,0,0,0,0,0,31100,11000,2,1,0,0,0,0,0	 *3 above
+*LMON BAR2,4950000,-300000,300,0,0,0,0,-20,0,0,0,0,0,31100,11000,2,1,0,0,0,0,0	 *3 below
+*LMON BAR1,4950000,-400000,300,0,0,0,0,20,0,0,0,0,0,31100,11000,2,1,0,0,0,0,0	 *4 above
+*LMON BAR1,4950000,-400000,300,0,0,0,0,20,0,0,0,0,0,31100,11000,2,1,0,0,0,0,0	 *4 below
+
+
+*LMON EXC1,4890000,-380000,0,0,0,0,0,0,0,0,0,0,46,31100,11000,1,1,1,0,0,0,45
+*LMON EXC1,4890000,-360000,0,0,0,0,0,0,0,0,0,0,46,31100,11000,1,1,1,0,0,0,135
+**LMON EXC1,4890000,-420000,0,0,0,0,0,0,0,0,0,0,46,31100,11000,1,1,1,0,0,0,225
+**LMON EXC1,4890000,-440000,0,0,0,0,0,0,0,0,0,0,46,31100,11000,1,1,1,0,0,0,315
+
+
+LAMN MN41,MN42,MN43,MN44,MN43,MN42,3,1,1,4590000,-440000,-200,4,0,0,0,0,0,0,0,0,27,13070,50,1,1,2,0,0,1
+
+LMON MS02,4382500,100000,0,0,0,0,0,0,0,0,0,0,55,11170,90,0,1,0,3,0,0,0	//active earth mothership
+LMON MS01,4380000,100000,0,0,0,0,1,0,0,0,0,0,0,11170,90,0,1,0,3,0,0,0
+LMON MS01,4385100,100000,0,0,0,0,-1,0,0,0,0,0,0,11170,90,0,1,0,3,0,0,0
+
+LMON MS02,4782500,-100000,0,0,0,0,0,0,0,0,0,0,55,11170,90,0,1,0,3,0,0,0	//active earth mothership
+LMON MS01,4780000,-100000,0,0,0,0,1,0,0,0,0,0,0,11170,90,0,1,0,3,0,0,0
+LMON MS01,4785100,-100000,0,0,0,0,-1,0,0,0,0,0,0,11170,90,0,1,0,3,0,0,0
+
+
+
+**Alien mothership
+****LMON id,x,y,z,dx,dy,dz,drx,dry,drz,c1,c2,c3,controller ref, shields,mass,class,active when not in view flag,
+****number of missiles - must be loaded in 10,11,12 order for controller to move the rings
+LMON MS10,4482500,-240000,0,0,0,0,0,1,0,0,0,0,54,11170,90,1,1,0,3,0,0,0	//active alien mship
+LMON MS11,4482500,-240000,0,0,0,0,0,-2,0,0,0,0,0,11170,90,2,1,0,3,0,0,0
+*LMON MS12,4482500,-241800,0,0,0,0,0,8,0,0,0,0,0,11170,90,1,1,0,3,0,0,0
+*LMON MS13,4482500,-238800,0,0,0,0,0,-8,0,0,0,0,0,11170,90,1,1,0,3,0,0,180
+
+*LMON MS12,4482500,-238200,0,0,0,0,0,0,0,0,0,0,0,11170,90,1,1,0,3,0,0,0
+*LMON MS13,4462500,-240000,0,0,0,0,1,0,0,0,0,0,0,11170,90,1,1,0,3,0,0,0
+
+*
+LMON MS10,4682500,240000,0,0,2,0,0,2,0,0,0,0,54,11170,90,1,1,0,3,0,0,0	//active alien mship
+LMON MS11,4682500,240000,0,0,2,0,0,-2,0,0,0,0,0,11170,90,2,1,0,3,0,0,0
+
+*LMON WMAN,4378000,100000,-200,0,0,0,0,0,0,0,0,0,39,970,100,0,1,1,1,1,0,0
+
+
+
+
+
+
+
+*LMON AST1,77000,-5000,-30,-30,0,0,0,2,1,0,0,0,25,31170,11000,2,1,0,0
+*LMON AST1,-43000,4000,-27,30,0,0,0,2,1,0,0,0,25,31170,11000,2,1,0,0
+*LMON AST1,-40000,-2000,-32,30,0,0,0,2,1,0,0,0,25,31170,11000,2,1,0,0
+*
+***LMON BOID,2600,0,-20,0,0,0,0,0,0,320,0,1,0,29170,29000,2,0,0,0	**35=boid controller which is move in a circle
+
+
+*****Load the mothership - frozen until visible then active
+*****Has four HD lasers to take on your chasers
+*****Mothership is actually made up of three objects so we get individual movements. MS01 is the big round balls, MS02
+*****is the center piece.
+*****BIG WARNING ON MULTIPLE OBJECT OBJECTS _ ONLY ONE SHOULD HAVE A CONTROLLER ASSOCIATED WITH IT!
+*****FOUR HOURS WASTED BECAUSE THE SECOND MS01 HAD IT'S CONTROLLER SET TO 29!
+*LMON MS02,5012500,-400000,0,0,0,0,0,0,0,0,0,0,29,11170,90,0,1,0,3,0
+*LMON MS01,5010000,-400000,0,0,0,0,1,0,0,0,0,0,0,11170,90,0,1,0,3,0
+*LMON MS01,5015100,-400000,0,0,0,0,-1,0,0,0,0,0,0,11170,90,0,1,0,3,0
+
+**Alien mothership
+****LMON id,x,y,z,dx,dy,dz,drx,dry,drz,c1,c2,c3,controller ref, shields,mass,class,active when not in view flag,
+****number of missiles
+**LMON MS11,5100000,-300000,0,0,2,0,0,-2,0,0,0,0,0,11170,90,2,1,0,3,0
+**LMON MS10,5100000,-300000,0,0,2,0,0,2,0,0,0,0,29,11170,90,1,1,0,3,0
+
+*LMON WMAN,5008000,-406000,-200,0,0,0,0,0,0,0,0,0,39,970,100,0,1,1,1,1
+*LMON WMAN,5008000,-402000,-200,0,0,0,0,0,0,0,0,0,39,970,100,0,1,1,1,1
+*LMON WMAN,5008000,-410000,-200,0,0,0,0,0,0,0,0,0,39,970,100,0,1,1,1,1
+
+
+****Planets
+**Earth
+*LMON PNT6,5000500,-400000,40000,0,0,0,0,0,0,320,0,1,32,1170,9000,2,0,0,0,0	**32=planet rotz controller,z inc, every 320 frames
+**Moon
+*LMON PNT2,5000500,-400000,40000,0,0,0,0,0,0,26,0,1,30,1170,9000,2,0,0,0,0	 *roty,every 26 frames, inc=-1
+**Mars
+*LMON PNT3,200500,1000,40000,0,0,0,0,0,0,200,0,1,32,1170,9000,2,0,0,0,0	*rotz,every 26 frames, inc=-1
+**Moon
+*LMON PNT7,200500,1000,40000,0,0,0,0,0,0,26,0,1,30,1170,9000,2,0,0,0,0	 *roty,every 26 frames, inc=-1
+
+*
+*LMON VMN1,4900000,-400000,-200,0,0,0,0,0,0,0,0,0,20,670,100,1,2,1,1,0
+*LMON VMN1,4860000,-400000,-200,0,0,0,0,0,0,0,0,0,20,670,100,1,2,1,1,0
+
+****End of file marker
+ZEOF
+
+****End of file
+
+
+

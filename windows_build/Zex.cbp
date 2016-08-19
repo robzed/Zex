@@ -1,0 +1,347 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="Zex" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="bin/Debug/Zex.exe" prefix_auto="1" extension_auto="0" />
+				<Option object_output="obj/Debug/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-g" />
+					<Add option="-DDEBUG" />
+					<Add option="-D_DEBUG" />
+				</Compiler>
+				<Linker>
+					<Add directory="Runtime_Libraries" />
+					<Add directory="Dev_Library/SDL-1.2.15/lib" />
+					<Add directory="Dev_Library/SDL_mixer-1.2.12/lib/x86" />
+				</Linker>
+			</Target>
+			<Target title="Release">
+				<Option output="bin/Release/Zex.exe" prefix_auto="1" extension_auto="0" />
+				<Option object_output="obj/Release/" />
+				<Option type="0" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-O2" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+					<Add option="-Wl,-Bstatic -lstdc++ -lpthread" />
+					<Add option="-Wl,-Bdynamic" />
+					<Add directory="Runtime_Libraries" />
+					<Add directory="Dev_Library/SDL-1.2.15/lib" />
+					<Add directory="Dev_Library/SDL_mixer-1.2.12/lib/x86" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Wall" />
+			<Add option="`sdl-config --cflags`" />
+			<Add option="-DWINVER=0x0501" />
+			<Add option="-DWIN32" />
+			<Add option="-D_WINDOWS" />
+			<Add option="-D_USRDLL" />
+			<Add option="-D_CRT_SECURE_NO_WARNINGS" />
+			<Add option="-D_MBCS" />
+			<Add option="-DWINDOWS_SOUND" />
+			<Add option="-D_GNU_SOURCE=1" />
+			<Add option="-Dmain=SDL_main" />
+			<Add directory="../Code/Standard_Headers" />
+			<Add directory="Dev_Library/SDL-1.2.15/include/SDL" />
+			<Add directory="Dev_Library/SDL_mixer-1.2.12/include" />
+			<Add directory="../Code/SDLMain" />
+			<Add directory="../Code/Error_Handler" />
+			<Add directory="../Code/Camera_Control" />
+			<Add directory="../Code/Other_Object_Control" />
+			<Add directory="../Code/Monster_control" />
+			<Add directory="../Code/debug_timing" />
+			<Add directory="../Code/3d_Engine" />
+			<Add directory="../Code/angular_stuff" />
+			<Add directory="../Code/flotsam_and_jetsam" />
+			<Add directory="../Code/Drawing_Primitives" />
+			<Add directory="../Code/Sound_and_Music_Control" />
+			<Add directory="../Code/Software_3d_Renderer" />
+			<Add directory="../Code/OGL" />
+			<Add directory="../Code/Level_Scripter_Loader" />
+			<Add directory="../Code/weapons_misc" />
+			<Add directory="../Code/Player_Control" />
+			<Add directory="../Code/Screen_Splat_Control" />
+			<Add directory="../Code/files" />
+			<Add directory="../Code/static_stuff" />
+			<Add directory="../Code/Galaxy_control" />
+			<Add directory="../Code/Menu_Processing" />
+			<Add directory="../Code/Input_Handler" />
+			<Add directory="../Code/Object_Drawing_Manager" />
+			<Add directory="../Code/Main" />
+			<Add directory="../Code/Init" />
+		</Compiler>
+		<Linker>
+			<Add option="`sdl-config --libs`" />
+			<Add option="-lmingw32" />
+			<Add option="-lSDLmain" />
+			<Add option="-lSDL" />
+			<Add option="-lSDL_mixer" />
+			<Add option="-mwindows" />
+			<Add option="-static-libgcc" />
+			<Add option="-static-libstdc++" />
+		</Linker>
+		<ExtraCommands>
+			<Add after="cp Runtime_Libraries/* $(TARGET_OUTPUT_DIR)" />
+			<Add after='cp -R &quot;../LSG - Zex/ZD3&quot; $(TARGET_OUTPUT_DIR)' />
+			<Add after='cp -R &quot;../LSG - Zex/Saved Games&quot;/ $(TARGET_OUTPUT_DIR)' />
+			<Mode after="always" />
+		</ExtraCommands>
+		<Unit filename="../Code/3d_Engine/3d_structures_def.h" />
+		<Unit filename="../Code/3d_Engine/3d_top.cpp" />
+		<Unit filename="../Code/3d_Engine/3d_top.h" />
+		<Unit filename="../Code/3d_Engine/3d_top_int.h" />
+		<Unit filename="../Code/3d_Engine/light_control.cpp" />
+		<Unit filename="../Code/3d_Engine/light_control.h" />
+		<Unit filename="../Code/3d_Engine/matrix_primitives.cpp" />
+		<Unit filename="../Code/3d_Engine/matrix_primitives.h" />
+		<Unit filename="../Code/3d_Engine/matrix_primitives_int.h" />
+		<Unit filename="../Code/Camera_Control/Camera_control.cpp" />
+		<Unit filename="../Code/Camera_Control/camera.h" />
+		<Unit filename="../Code/Drawing_Primitives/Batcom.cpp" />
+		<Unit filename="../Code/Drawing_Primitives/Batcom.h" />
+		<Unit filename="../Code/Drawing_Primitives/Credits.cpp" />
+		<Unit filename="../Code/Drawing_Primitives/Damage.cpp" />
+		<Unit filename="../Code/Drawing_Primitives/Damage.h" />
+		<Unit filename="../Code/Drawing_Primitives/Fuel.cpp" />
+		<Unit filename="../Code/Drawing_Primitives/Missiles.h" />
+		<Unit filename="../Code/Drawing_Primitives/Score.h" />
+		<Unit filename="../Code/Drawing_Primitives/bmp.h" />
+		<Unit filename="../Code/Drawing_Primitives/credits.h" />
+		<Unit filename="../Code/Drawing_Primitives/dlp.cpp" />
+		<Unit filename="../Code/Drawing_Primitives/dlp.h" />
+		<Unit filename="../Code/Drawing_Primitives/dlp_explosions.cpp" />
+		<Unit filename="../Code/Drawing_Primitives/dlp_explosions.h" />
+		<Unit filename="../Code/Drawing_Primitives/fuel.h" />
+		<Unit filename="../Code/Drawing_Primitives/instrum.cpp" />
+		<Unit filename="../Code/Drawing_Primitives/instrum.h" />
+		<Unit filename="../Code/Drawing_Primitives/instrum_int.h" />
+		<Unit filename="../Code/Drawing_Primitives/lives.cpp" />
+		<Unit filename="../Code/Drawing_Primitives/lives.h" />
+		<Unit filename="../Code/Drawing_Primitives/missiles.cpp" />
+		<Unit filename="../Code/Drawing_Primitives/pictures.cpp" />
+		<Unit filename="../Code/Drawing_Primitives/pictures.h" />
+		<Unit filename="../Code/Drawing_Primitives/radar.cpp" />
+		<Unit filename="../Code/Drawing_Primitives/radar.h" />
+		<Unit filename="../Code/Drawing_Primitives/score.cpp" />
+		<Unit filename="../Code/Drawing_Primitives/systems.h" />
+		<Unit filename="../Code/Drawing_Primitives/thrust.cpp" />
+		<Unit filename="../Code/Drawing_Primitives/thrust.h" />
+		<Unit filename="../Code/Drawing_Primitives/txtsplat.cpp" />
+		<Unit filename="../Code/Drawing_Primitives/txtsplat.h" />
+		<Unit filename="../Code/Error_Handler/Error_handler.cpp" />
+		<Unit filename="../Code/Error_Handler/Error_handler.h" />
+		<Unit filename="../Code/Error_Handler/emergency_varfont.cpp" />
+		<Unit filename="../Code/Error_Handler/emergency_varfont.h" />
+		<Unit filename="../Code/Error_Handler/memory_debug.cpp" />
+		<Unit filename="../Code/Error_Handler/memory_debug.h" />
+		<Unit filename="../Code/Galaxy_control/Galaxy.cpp" />
+		<Unit filename="../Code/Galaxy_control/Galaxy.h" />
+		<Unit filename="../Code/Galaxy_control/Planet_Generator.cpp" />
+		<Unit filename="../Code/Galaxy_control/Planet_Generator.h" />
+		<Unit filename="../Code/Galaxy_control/game_script.cpp" />
+		<Unit filename="../Code/Galaxy_control/game_script.h" />
+		<Unit filename="../Code/Galaxy_control/map_control.cpp" />
+		<Unit filename="../Code/Galaxy_control/map_control.h" />
+		<Unit filename="../Code/Galaxy_control/planet_gen_main.cpp" />
+		<Unit filename="../Code/Init/Z_init.h" />
+		<Unit filename="../Code/Init/init_memory.cpp" />
+		<Unit filename="../Code/Init/init_memory.h" />
+		<Unit filename="../Code/Init/z_init.cpp" />
+		<Unit filename="../Code/Input_Handler/input_control.cpp" />
+		<Unit filename="../Code/Input_Handler/input_control.h" />
+		<Unit filename="../Code/Input_Handler/key_setting.cpp" />
+		<Unit filename="../Code/Input_Handler/key_setting.h" />
+		<Unit filename="../Code/Input_Handler/key_setup_display.cpp" />
+		<Unit filename="../Code/Input_Handler/key_setup_display.h" />
+		<Unit filename="../Code/Level_Scripter_Loader/compile_zmap.cpp" />
+		<Unit filename="../Code/Level_Scripter_Loader/compile_zmap.h" />
+		<Unit filename="../Code/Level_Scripter_Loader/handle_level.cpp" />
+		<Unit filename="../Code/Level_Scripter_Loader/handle_level.h" />
+		<Unit filename="../Code/Level_Scripter_Loader/level_control.cpp" />
+		<Unit filename="../Code/Level_Scripter_Loader/level_control.h" />
+		<Unit filename="../Code/Level_Scripter_Loader/load_complex_object.cpp" />
+		<Unit filename="../Code/Level_Scripter_Loader/load_complex_object.h" />
+		<Unit filename="../Code/Level_Scripter_Loader/load_level.cpp" />
+		<Unit filename="../Code/Level_Scripter_Loader/load_level.h" />
+		<Unit filename="../Code/Levels/level1.cpp" />
+		<Unit filename="../Code/Levels/level2.cpp" />
+		<Unit filename="../Code/Levels/level3.cpp" />
+		<Unit filename="../Code/Levels/level4.cpp" />
+		<Unit filename="../Code/Levels/level5.cpp" />
+		<Unit filename="../Code/Levels/level_game.cpp" />
+		<Unit filename="../Code/Main/ZEX.cpp" />
+		<Unit filename="../Code/Main/ZEX.h" />
+		<Unit filename="../Code/Main/game_pause.cpp" />
+		<Unit filename="../Code/Main/game_pause.h" />
+		<Unit filename="../Code/Main/game_registration_menu.cpp" />
+		<Unit filename="../Code/Main/game_registration_menu.h" />
+		<Unit filename="../Code/Main/main_sel_screen.cpp" />
+		<Unit filename="../Code/Main/main_sel_screen.h" />
+		<Unit filename="../Code/Main/read_zex_ini.h" />
+		<Unit filename="../Code/Main/register_game.cpp" />
+		<Unit filename="../Code/Main/register_game.h" />
+		<Unit filename="../Code/Menu_Processing/get_text_string.cpp" />
+		<Unit filename="../Code/Menu_Processing/get_text_string.h" />
+		<Unit filename="../Code/Menu_Processing/input_string_for_menu.cpp" />
+		<Unit filename="../Code/Menu_Processing/input_string_for_menu.h" />
+		<Unit filename="../Code/Menu_Processing/zdungeon_printing_emulation.cpp" />
+		<Unit filename="../Code/Menu_Processing/zdungeon_printing_emulation.h" />
+		<Unit filename="../Code/Monster_control/NPC_Control.cpp" />
+		<Unit filename="../Code/Monster_control/NPC_Control.h" />
+		<Unit filename="../Code/Monster_control/monster1.cpp" />
+		<Unit filename="../Code/Monster_control/monster1.h" />
+		<Unit filename="../Code/Monster_control/monster2.cpp" />
+		<Unit filename="../Code/Monster_control/monster_control_misc.cpp" />
+		<Unit filename="../Code/Monster_control/monster_control_misc.h" />
+		<Unit filename="../Code/Monster_control/transporters.cpp" />
+		<Unit filename="../Code/Monster_control/transporters.h" />
+		<Unit filename="../Code/Monster_control/wingman.cpp" />
+		<Unit filename="../Code/Monster_control/wingman.h" />
+		<Unit filename="../Code/Monster_control/wingman_game.cpp" />
+		<Unit filename="../Code/OGL/OGL.cpp" />
+		<Unit filename="../Code/OGL/OGL.h" />
+		<Unit filename="../Code/OGL/ogl_text.cpp" />
+		<Unit filename="../Code/OGL/olg_text.h" />
+		<Unit filename="../Code/Object_Drawing_Manager/drawing.cpp" />
+		<Unit filename="../Code/Object_Drawing_Manager/drawing.h" />
+		<Unit filename="../Code/Other_Object_Control/CPanel.cpp" />
+		<Unit filename="../Code/Other_Object_Control/CPanel.h" />
+		<Unit filename="../Code/Other_Object_Control/MeshToZex.cpp" />
+		<Unit filename="../Code/Other_Object_Control/MeshToZex.h" />
+		<Unit filename="../Code/Other_Object_Control/Zex_weapons.h" />
+		<Unit filename="../Code/Other_Object_Control/animation.cpp" />
+		<Unit filename="../Code/Other_Object_Control/animation.h" />
+		<Unit filename="../Code/Other_Object_Control/boid.cpp" />
+		<Unit filename="../Code/Other_Object_Control/boid.h" />
+		<Unit filename="../Code/Other_Object_Control/cargo.cpp" />
+		<Unit filename="../Code/Other_Object_Control/cargo.h" />
+		<Unit filename="../Code/Other_Object_Control/check_bounding_boxes.cpp" />
+		<Unit filename="../Code/Other_Object_Control/check_bounding_boxes.h" />
+		<Unit filename="../Code/Other_Object_Control/explode.cpp" />
+		<Unit filename="../Code/Other_Object_Control/explode.h" />
+		<Unit filename="../Code/Other_Object_Control/fire_weapon.cpp" />
+		<Unit filename="../Code/Other_Object_Control/fire_weapon.h" />
+		<Unit filename="../Code/Other_Object_Control/insert_object.cpp" />
+		<Unit filename="../Code/Other_Object_Control/insert_object.h" />
+		<Unit filename="../Code/Other_Object_Control/load_objects.cpp" />
+		<Unit filename="../Code/Other_Object_Control/load_objects.h" />
+		<Unit filename="../Code/Other_Object_Control/misc_controllers.cpp" />
+		<Unit filename="../Code/Other_Object_Control/misc_controllers.h" />
+		<Unit filename="../Code/Other_Object_Control/motherships.cpp" />
+		<Unit filename="../Code/Other_Object_Control/motherships.h" />
+		<Unit filename="../Code/Other_Object_Control/obj_control_misc_routines.h" />
+		<Unit filename="../Code/Other_Object_Control/object_control_misc_routines.cpp" />
+		<Unit filename="../Code/Other_Object_Control/object_control_top.cpp" />
+		<Unit filename="../Code/Other_Object_Control/object_control_top.h" />
+		<Unit filename="../Code/Other_Object_Control/object_misc.h" />
+		<Unit filename="../Code/Other_Object_Control/objects_controls.h" />
+		<Unit filename="../Code/Other_Object_Control/objects_misc.cpp" />
+		<Unit filename="../Code/Player_Control/real_time.cpp" />
+		<Unit filename="../Code/Player_Control/real_time.h" />
+		<Unit filename="../Code/Player_Control/refuel.cpp" />
+		<Unit filename="../Code/Player_Control/refuel.h" />
+		<Unit filename="../Code/Player_Control/ship_control.cpp" />
+		<Unit filename="../Code/Player_Control/ship_control.h" />
+		<Unit filename="../Code/SDLMain/SDLMain.h" />
+		<Unit filename="../Code/SDLMain/mac_emulation.cpp" />
+		<Unit filename="../Code/SDLMain/mac_emulation.h" />
+		<Unit filename="../Code/SDLMain/main.cpp" />
+		<Unit filename="../Code/SDLMain/main.h" />
+		<Unit filename="../Code/Screen_Splat_Control/Splat_control.cpp" />
+		<Unit filename="../Code/Screen_Splat_Control/screen_splats.h" />
+		<Unit filename="../Code/Screen_Splat_Control/splat_control.h" />
+		<Unit filename="../Code/Screen_Splat_Control/splat_control_int.h" />
+		<Unit filename="../Code/Screen_Splat_Control/splat_control_new.h" />
+		<Unit filename="../Code/Screen_Splat_Control/splat_control_sw.h" />
+		<Unit filename="../Code/Software_3d_Renderer/FPOLY4_1.cpp" />
+		<Unit filename="../Code/Software_3d_Renderer/f_light_int.h" />
+		<Unit filename="../Code/Software_3d_Renderer/fcircle.cpp" />
+		<Unit filename="../Code/Software_3d_Renderer/fcircle.h" />
+		<Unit filename="../Code/Software_3d_Renderer/fdistort.cpp" />
+		<Unit filename="../Code/Software_3d_Renderer/fdistort.h" />
+		<Unit filename="../Code/Software_3d_Renderer/fdistort_mask.cpp" />
+		<Unit filename="../Code/Software_3d_Renderer/fdistort_multi.cpp" />
+		<Unit filename="../Code/Software_3d_Renderer/fgouraud.cpp" />
+		<Unit filename="../Code/Software_3d_Renderer/fgouraud.h" />
+		<Unit filename="../Code/Software_3d_Renderer/fpoly4.h" />
+		<Unit filename="../Code/Software_3d_Renderer/genpoly_int.h" />
+		<Unit filename="../Code/Software_3d_Renderer/polyclip.cpp" />
+		<Unit filename="../Code/Software_3d_Renderer/stu_poly.h" />
+		<Unit filename="../Code/Software_3d_Renderer/texture_management.cpp" />
+		<Unit filename="../Code/Software_3d_Renderer/texture_management.h" />
+		<Unit filename="../Code/Sound_and_Music_Control/Sound_int.h" />
+		<Unit filename="../Code/Sound_and_Music_Control/sound.cpp" />
+		<Unit filename="../Code/Sound_and_Music_Control/sound.h" />
+		<Unit filename="../Code/Standard_Headers/LS_Standard.h" />
+		<Unit filename="../Code/Standard_Headers/game_defs.h" />
+		<Unit filename="../Code/Standard_Headers/options.h" />
+		<Unit filename="../Code/angular_stuff/angular_stuff.cpp" />
+		<Unit filename="../Code/angular_stuff/angular_stuff.h" />
+		<Unit filename="../Code/debug_timing/debug_timing.h" />
+		<Unit filename="../Code/files/PrefsFile.cpp" />
+		<Unit filename="../Code/files/PrefsFile.h" />
+		<Unit filename="../Code/files/enhanced_string.cpp" />
+		<Unit filename="../Code/files/enhanced_string.h" />
+		<Unit filename="../Code/files/file_io.cpp" />
+		<Unit filename="../Code/files/file_io.h" />
+		<Unit filename="../Code/files/file_io_int.h" />
+		<Unit filename="../Code/files/file_save_description_menu.cpp" />
+		<Unit filename="../Code/files/file_save_description_menu.h" />
+		<Unit filename="../Code/files/game_file_parser.cpp" />
+		<Unit filename="../Code/files/game_file_parser.h" />
+		<Unit filename="../Code/files/game_file_selector.cpp" />
+		<Unit filename="../Code/files/game_file_selector.h" />
+		<Unit filename="../Code/files/game_save.cpp" />
+		<Unit filename="../Code/files/game_save.h" />
+		<Unit filename="../Code/files/menu_driver.cpp" />
+		<Unit filename="../Code/files/menu_driver.h" />
+		<Unit filename="../Code/files/save_path_destination.cpp" />
+		<Unit filename="../Code/files/save_path_destination.h" />
+		<Unit filename="../Code/files/simple_command_interpreter.cpp" />
+		<Unit filename="../Code/files/simple_command_interpreter.h" />
+		<Unit filename="../Code/files/text_entry_menu.cpp" />
+		<Unit filename="../Code/files/text_entry_menu.h" />
+		<Unit filename="../Code/files/timing.cpp" />
+		<Unit filename="../Code/files/timing.h" />
+		<Unit filename="../Code/flotsam_and_jetsam/do_intro.cpp" />
+		<Unit filename="../Code/flotsam_and_jetsam/do_intro.h" />
+		<Unit filename="../Code/flotsam_and_jetsam/docked.cpp" />
+		<Unit filename="../Code/flotsam_and_jetsam/docked.h" />
+		<Unit filename="../Code/flotsam_and_jetsam/score_and_credits.cpp" />
+		<Unit filename="../Code/flotsam_and_jetsam/score_and_credits.h" />
+		<Unit filename="../Code/flotsam_and_jetsam/zex_misc.cpp" />
+		<Unit filename="../Code/flotsam_and_jetsam/zex_misc.h" />
+		<Unit filename="../Code/static_stuff/buy.cpp" />
+		<Unit filename="../Code/static_stuff/buy.h" />
+		<Unit filename="../Code/static_stuff/buy_int.h" />
+		<Unit filename="../Code/static_stuff/command_and_control.cpp" />
+		<Unit filename="../Code/static_stuff/command_and_control.h" />
+		<Unit filename="../Code/static_stuff/hiscore.cpp" />
+		<Unit filename="../Code/static_stuff/hiscore.h" />
+		<Unit filename="../Code/static_stuff/inventory.cpp" />
+		<Unit filename="../Code/static_stuff/inventory.h" />
+		<Unit filename="../Code/static_stuff/show_stats.cpp" />
+		<Unit filename="../Code/static_stuff/show_stats.h" />
+		<Unit filename="../Code/weapons_misc/aim.cpp" />
+		<Unit filename="../Code/weapons_misc/aim.h" />
+		<Unit filename="../Code/weapons_misc/weapons_damage.h" />
+		<Unit filename="zex_resfile.rc">
+			<Option compilerVar="WINDRES" />
+		</Unit>
+		<Extensions>
+			<code_completion />
+			<debugger />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>

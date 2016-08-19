@@ -1,0 +1,6 @@
+//release notes
+1. If zex crashes on boot up, remove the input sprocket preferences file frrom your System:Preferences folder.
+2. dont run with themes
+3. on 7200 with usb, mouse movements may cause the sound to break up.
+
+

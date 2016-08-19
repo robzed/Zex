@@ -1,0 +1,49 @@
+Zex Game Play
+
+EJECT
+Ejection pods are coloured orange via inte-stella treaty.
+The player my eject by pressing the E key twice. There will be a short delay between
+initiating  eject and the actual ejecton whilst the escape hatch is blown.
+
+
+MONSTER SHIPS
+
+Type R:
+Pretty stupid robot driven ship. Wont chase.  Doesn't really look where it's shooting.
+
+Type L
+Like type A, but driven by a lifeform. Looks where its shooting, will eject if given time.
+
+Type R1
+Like tye B but will chase after a fashion.
+
+Type L1
+Same as type L but will chase.
+
+Type Z
+A Zex with a nasty driver.
+
+Type T
+Nasty robot driven ship capable of spawing off remote controller baby type T's
+
+WEAPONS
+
+LASERS
+All come in three types - single beam, double and quadruple
+20KW
+60KW
+300KW
+1MW
+
+CANNONS
+Weany - does not seek.
+Not so Weany. Seeks.
+Mega - seeks and explodes after 3 seconds whether it hit something or not.
+
+Basic Missiles
+Three types - 1Mega Tonne, 3 MT and 10 MT
+Zex can cary three at a time.
+
+
+MINES
+These just float and explode when in the vicinity of a ship.

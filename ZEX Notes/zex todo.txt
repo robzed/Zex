@@ -1,0 +1,1060 @@
+                                           Zex todo
+
+CVS:      This file is subject to CVS. 
+          !Please book in changes/updates/tick offs immediately!
+	  !Please add WIP if work in progress!
+
+SECURITY: LS CONFIDENTIAL
+
+$Log: zex\040todo.txt,v $
+Revision 1.1  2005/10/04 20:51:14  rob
+ZEX2005: Notes folder
+
+Revision 1.31  1999/06/27 19:27:44  stu
+Clean up 27 June 99
+
+Revision 1.30  1999/06/16 00:25:57  stu
+Added notes about VM performance degradation wrt sound.
+
+Revision 1.29  1999/06/14 07:25:41  stu
+*** empty log message ***
+
+Revision 1.28  1999/06/10 03:15:49  stu
+Fixed MF004 and SB004
+
+Revision 1.27  1999/06/08 23:07:48  stu
+Final checkin before cvs pro client upgrade.
+
+Revision 1.26  1999/06/05 17:37:01  stu
+Fix PB-002 and PF-001 - wingmen and physics
+
+Revision 1.25  1999/06/05 03:08:29  stu
+Entered some wrong dates in last check in :(
+
+Revision 1.24  1999/06/05 03:05:09  stu
+Fixed Ejection pods not docking correctly.
+
+Revision 1.23  1999/06/05 01:23:06  stu
+Fixed explosions in wrong place bug.
+
+Revision 1.22  1999/06/05 01:01:32  stu
+Many minor object control problems fixed. See todo
+
+Revision 1.21  1999/06/03 18:13:49  stu
+Added notes for Fantasm splat frag for assm pixel doubler
+
+Revision 1.20  1999/06/02 16:44:42  stu
+Added EF-008 and PF-002
+
+Revision 1.19  1999/06/02 08:31:59  rob
+Various updates
+
+Revision 1.18  1999/05/30 14:22:15  stu
+Fixed EB-001, GB-001
+
+Revision 1.17  1999/05/29 23:06:25  ian
+Various notes
+
+Revision 1.16  1999/05/27 04:48:44  stu
+Adds visible shield to Zex when hit (if shields are charged that is....)
+
+Revision 1.15  1999/05/25 05:00:05  stu
+Added notes to EB-006
+
+Revision 1.14  1999/05/25 04:46:11  stu
+Fixed EF-007 and PB-001
+
+Revision 1.13  1999/05/25 02:49:46  stu
+Moved lens flare bug to "done".
+
+Revision 1.12  1999/05/25 01:47:02  stu
+Added New section for sound and raised and fixed a few sound system bugs.
+
+Revision 1.11  1999/05/24 20:39:38  rob
+Added Main screen comment.
+
+Revision 1.10  1999/05/24 20:36:53  rob
+Added couple of main screen problems.
+
+Revision 1.9  1999/05/24 00:08:34  stu
+Added EF-007 - Space dust and camera FOV problem.
+
+Revision 1.8  1999/05/23 23:46:17  stu
+Moved EB-005 (Timing/ratios- Rob) to Completed status.
+
+Revision 1.7  1999/05/23 22:35:39  stu
+EF-003 and EF004 completed.
+
+Revision 1.6  1999/05/23 21:37:37  rob
+1. Added percentage timing ability to Zex
+2. Rearranged headers in project file
+
+Revision 1.5  1999/05/23 09:33:03  stu
+*** empty log message ***
+
+Revision 1.4  1999/05/22 21:24:04  rob
+Added another couple on my list
+
+Revision 1.3  1999/05/22 20:31:09  rob
+Added categories to make easier to search for specific areas.
+Still needs work, but hopefully better.
+
+Revision 1.2  1999/05/22 19:00:21  stu
+Initial "Fill" - SB
+
+
+-------------------------------------------------------------------------------
+
+E - 3D ENGINE/RENDERING/SPLAT
+=============================
+
+  FEATURES NEEDED
+  ---------------
+
+    Number    : EF-001
+    Summary   : Lens flare - Make circles transparent.
+    
+    Details   : Requires testing of transparent circles in addition of work on lens flair
+    Priority  : 
+    Spotted by: 
+    Date Seen :
+    Version   :
+    Work2Date :
+
+
+    Number    : EF-002 [WIP 020699 SB]
+    Summary   : Pixel doubler go faster stripes
+    
+    Details   : Use intrisics to encode rlwimi to optimise, (or assembler, either in compiler, or
+                as seperate fantasm shared lib).
+                Fantasm project created to poke a cfrg straight into Zex as Fppc 128.
+                Zex modded to load and call the frag.
+    Priority  : 
+    Spotted by:
+    Date Seen :
+    Version   :
+    Work2Date :
+
+
+
+    Number    : EF-005
+    Summary   : zex explosion
+    
+    Details   : Very Large Explosion/Sound effect for when zex gets killed - quickly we can 
+		gen a few large flare effects and shake the camera and generate the VLE sound effect
+		on three channels, each slighly delayed to get a full coverage.
+
+    Priority  : 
+    Spotted by:
+    Date Seen :
+    Version   :
+    Work2Date :
+
+
+    Number    : EF-006
+    Summary   : Spot effects as per script (See below).
+    
+    Details   :
+    Priority  : 
+    Spotted by:
+    Date Seen :
+    Version   :
+    Work2Date :
+
+
+    Number    : EF-008 [WIP SB 020699]
+    Summary   : Better camera control when Zex dies.
+    
+    Details   : When Zex dies camera should zoom in whilst rotating around 360 and then zoom way out
+                (or something similar).
+    Priority  : Med.
+    Spotted by: Stu.
+    Date Seen : 020699
+    Version   :
+    Work2Date :
+
+
+
+    Number    : EF-010
+    Summary   : 
+    
+    Details   : 
+    
+    Priority  : 
+    Spotted by: 
+    Date Seen : 
+    Version   :
+    Work2Date :
+
+
+  BUGS
+  ----
+
+
+
+
+    Number    : EB-004 
+    Summary   : Lens flare - circles all wrong sizes
+    
+    Details   : 
+    Priority  : 
+    Spotted by:
+    Date Seen :
+    Version   :
+    Work2Date :
+
+
+
+    Number    : EB-006
+    Summary   : Make explosions scalable with camera. (note: Camera range is -2000 when zoomed right in
+                to -10520 when zoomed right out - read as camera_pos.z from camera_control.c)
+    
+    Details   : 
+    Priority  : 
+    Spotted by: 
+    Date Seen :
+    Version   :
+    Work2Date :
+
+
+
+
+P - PHYSICS/OBJECT CONTROL
+==========================
+
+
+
+  FEATURES NEEDED
+  ---------------
+
+    
+    Number    : PF-002
+    Summary   : Druids - Alien ship in RMparian space. Spits fire. Just a possible.
+    
+    Details   : 
+    
+    Priority  : 
+    Spotted by: Stu
+    Date Seen :
+    Version   :
+    Work2Date :
+
+
+
+
+  BUGS
+  ----
+
+    
+
+
+
+
+    Number    : PB-008
+    Summary   : 
+    
+    Details   : 
+
+    Priority  : 
+    Spotted by: 
+    Date Seen :
+    Version   :
+    Work2Date :
+
+
+
+
+
+
+M - MISC
+========
+
+
+  FEATURES NEEDED
+  ---------------
+
+    Number    : MF-001
+    Summary   : Tweak prices and weapons
+    
+    Details   :
+    Priority  : 
+    Spotted by:
+    Date Seen :
+    Version   :
+    Work2Date :
+
+
+
+    Number    : MF-003
+    Summary   : Change AIT so that we can soft link with driver services lib and use 
+    		bothy PCI and NUBUS machines - optionally selecting features we need.
+
+    Details   : There was one feature of driverserviceslib that looked good.
+    Priority  : 
+    Spotted by:
+    Date Seen :
+    Version   :
+    Work2Date :
+
+
+
+
+
+
+
+  BUGS
+  ----
+    Number    : MB-001
+    Summary   : Dirction Pointers are not replaced after the Radar has been fixed after
+    		being destroyed. 
+    
+    Details   :
+    Priority  : Medium
+    Spotted by: Ian
+    Date Seen : 
+    Version   :
+    Work2Date : none
+
+
+
+    Number    : MB-002
+    Summary   : Error about "fails to set graphics active" when not changing resolution.
+    
+    Details   :
+    Priority  : 
+    Spotted by: Ian
+    Date Seen : 
+    Version   :
+    Work2Date : 
+
+
+
+    Number    : MB-003
+    Summary   : Red line appearing on Radar 
+    
+    Details   :
+    Priority  : Medium
+    Spotted by: Ian
+    Date Seen : 
+    Version   :
+    Work2Date : none
+
+
+
+    Number    : MB-004
+    Summary   : The on screen font sucks! 
+    
+    Details   :
+    Priority  : Medium
+    Spotted by: Ian
+    Date Seen : 
+    Version   :
+    Work2Date : none
+
+
+
+    Number    : MB-005
+    Summary   :  
+    
+    Details   :
+    Priority  : 
+    Spotted by: 
+    Date Seen : 
+    Version   :
+    Work2Date : 
+
+
+
+G - 2D GRAPHICS ARTWORK
+=======================
+
+
+  FEATURES NEEDED
+  ---------------
+
+    Number    : GF-001
+    Summary   : Work through 2d art finding out what's needed.
+    
+    Details   : include - "Minor aesthetics and graphics in buy screens."
+    Priority  : 
+    Spotted by:
+    Date Seen :
+    Version   :
+    Work2Date :
+
+
+
+  BUGS
+  ----
+
+    Number    : 
+    Summary   : 
+    
+    Details   : 
+    Priority  : 
+    Spotted by: 
+    Date Seen : 
+    Version   :
+    Work2Date : none
+
+
+
+O - 3D OBJECT GRAPHICS ARTWORK
+==============================
+
+
+  FEATURES NEEDED
+  ---------------
+
+    Number    : OF-001
+    Summary   : Work through 3d art finding out what's needed.
+    
+    Details   :
+    Priority  : 
+    Spotted by:
+    Date Seen :
+    Version   :
+    Work2Date :
+
+
+
+  BUGS
+  ----
+
+    Number    : 
+    Summary   : 
+    
+    Details   :
+    Priority  : 
+    Spotted by:
+    Date Seen :
+    Version   :
+    Work2Date :
+
+
+S - SUPPORT SCREENS
+===================
+
+
+  FEATURES NEEDED
+  ---------------
+
+    Number    : SF-001
+    Summary   : Make Hi-Score screen look more impressive
+    
+    Details   : Many ideas, but perhaps, black writing (that shimmers from black to white)
+    		with fire background? Still have shield. Maybe get do 2d graphic title (add to list 
+    		if so)?
+    Priority  : 
+    Spotted by:
+    Date Seen :
+    Version   :
+    Work2Date :
+
+
+
+  BUGS
+  ----
+
+
+
+    Number    : SB-003
+    Summary   : Main screen - preference buttons still look too cramped.
+    
+    Details   :
+    Priority  : 
+    Spotted by: Ian
+    Date Seen : 24/5/99
+    Version   :
+    Work2Date :
+
+
+
+
+
+
+L - LEVEL WORK
+==============
+
+
+  FEATURES NEEDED
+  ---------------
+
+    Number    : LF-001
+    Summary   : Levels as per script and specific controller/s for levels (See script below).
+    
+    Details   :
+    Priority  : 
+    Spotted by:
+    Date Seen :
+    Version   :
+    Work2Date :
+
+
+
+  BUGS
+  ----
+
+    Number    : 
+    Summary   : 
+    
+    Details   :
+    Priority  : 
+    Spotted by:
+    Date Seen :
+    Version   :
+    Work2Date :
+
+
+    Number    : 
+    Summary   : 
+    
+    Details   :
+    Priority  : 
+    Spotted by:
+    Date Seen :
+    Version   :
+    Work2Date :
+
+
+Z - SOUND DRIVER
+================
+
+  FEATURES NEEDED
+  ---------------
+
+    Number    : ZF-002
+    Summary   : 
+                
+    Details   :  
+		
+
+    Priority  : 
+    Spotted by: 
+    Date Seen : 
+    Version   :
+    Work2Date :
+
+
+
+  BUGS
+  ----
+
+    Number    : ZB-003
+    Summary   : Sound delayed when VM on (OS 8.51)
+    
+    Details   : 
+    Priority  : 
+    Date Seen : 150699
+    Version   :
+    Work2Date :
+
+
+    Number    : ZB-004
+    Summary   :  
+    
+    Details   : 
+    Priority  : 
+    Date Seen : 
+    Version   :
+    Work2Date :
+
+
+
+
+
+D - DOCUMENT WORK
+=================
+
+  FEATURES NEEDED
+  ---------------
+
+    Number    : DF-001
+    Summary   : Test Spec
+    
+    Details   : Public test when complete - spec. re: screen driver and VBL tasks re: memory movement 
+		at vbl time -- possible problem on some machines?
+
+    Priority  : 
+    Spotted by:
+    Date Seen :
+    Version   :
+    Work2Date :
+
+
+
+  BUGS
+  ----
+
+    Number    : 
+    Summary   : 
+    
+    Details   :
+    Priority  : 
+    Spotted by:
+    Date Seen :
+    Version   :
+    Work2Date :
+
+
+
+
+
+
+T - TEST WORK
+=============
+
+  FEATURES NEEDED
+  ---------------
+
+    Number    : TF-001
+    Summary   : Test buy items and test items inter-dependance.
+    
+    Details   : Go through items making sure everything works and that you can buy everything- i.e. 
+		rear lasers only fire when 360 degree targetting fitted.
+
+    Priority  : 
+    Spotted by:
+    Date Seen :
+    Version   :
+    Work2Date :
+
+
+
+
+----------------------------------------------------------------------------------
+
+COMPLETED
+========= (move here when the above has been done)
+
+    Number    : PB-007
+    Summary   : Hull state not saved in saved game.
+    		[Fixed 140699]
+    Details   : 
+
+    Priority  : 
+    Spotted by: Stu
+    Date Seen :	100699
+    Version   :
+    Work2Date :
+
+
+
+    Number    : SB-004
+    Summary   : Main screen - space cow when expanded leave garbage at bottom
+    
+    Details   :
+    Priority  : 
+    Spotted by: Rob
+    Date Seen :
+    Version   :
+    Work2Date :
+
+
+
+    Number    : MF-004
+    Summary   : Battle computer
+                [Done 100699]
+                
+    Details   : Ian
+    Priority  : 
+    Spotted by:
+    Date Seen :
+    Version   :
+    Work2Date : preliminary
+    
+    
+
+    Number    : EF-009
+    Summary   : Add a watchdog timer to detect looped conditions
+    
+    Details   : Use our VBL task.
+                [Done 080699] Three new functions in splat control called:
+                reset_watchdog, enable_watchdog and disable_watchdog.
+                reset_watchdog must be called periodically. It sets the counter to 100.
+                The vbl task decrements the counter and throws an error if it gets to zero.
+                It can be globally enabled and disabled with disable-watchdog and enable_watchdog.
+                
+    Priority  : High
+    Spotted by: Stu
+    Date Seen : 070699
+    Version   :
+    Work2Date :
+
+
+---------------------
+    Number    : PB-002
+    Summary   : Ramming
+    
+    Details   : Physics tweaks - for example if you sit still and manage to get a large alien ship to 
+		ram you, it will invariably be destroyed within a few seconds.
+                Fixed 050699 - major change to object_control_top.c so monster controllers run during a collision. 
+    Priority  : 
+    Spotted by: Stu
+    Date Seen :
+    Version   :
+    Work2Date :
+
+
+
+
+    Number    : PF-001
+    Summary   : Wingmen regeneration
+    
+    Details   : Wingmen - no longer return to mothership for repair, but if destroyed the mothership
+		*may* send out new ones if there is an earth mothership in range.
+                Changed so wingmen have rechargeable shields and so last much longer but when they're gone,
+                they're gone!
+
+    Priority  : 
+    Spotted by: Stu
+    Date Seen :
+    Version   :
+    Work2Date :
+
+
+
+    Number    : PB-003
+    Summary   : Ejection pods don't dock [FIXED 050699 - ship_control.c:do_eject set request_dock flag]
+    
+    Details   : Ejection pods don't request dock from the mothership and so either don't dock at all
+                or dock incorrectly
+
+    Priority  : high
+    Spotted by: stu
+    Date Seen : 250599
+    Version   :
+    Work2Date :
+
+
+---------
+
+    Number    : EB-003
+    Summary   : Explosions - aimed at wrong place
+                [Fixed 050699 SB] - Error in get_any_screen_coord introduced 
+                in 3208240 mods.
+     Details   :
+    Priority  : 
+    Spotted by:
+    Date Seen :
+    Version   :
+    Work2Date :
+
+
+
+    Number    : PB-006
+    Summary   : Zex crashes if player ejects and no mothership loaded. [Fixed 050699]
+    
+    Details   : As above. Fix displays text on screen about there being no motherships in the vicinity;
+                hence can't eject.
+
+    Priority  : VHigh 
+    Spotted by: Stu
+    Date Seen :	050699
+    Version   :
+    Work2Date :
+
+
+    Number    : PB-004 [fixed 050699]
+    Summary   : Asteroids magnetic fields dont work
+    
+    Details   : Two problems. 
+                1. ship_control was processing extern_movedx/y incorrectly.
+                2. Monster2 (the small red/white one) had bad code. other monsters were OK.
+
+    Priority  : High
+    Spotted by: Stu
+    Date Seen : 030699
+    Version   :
+    Work2Date :
+
+
+
+    Number    : PB-005 [Fixed 050699]
+    Summary   : Asteroids severly slow the game down
+    
+    Details   : Because they are processing space dust etc,
+                Fix also fixes a potential crash bug in that the asteroid code was scanning one too
+                many objects (getting up to like 240000 before it found some crap that terminated the scan)
+    Priority  : High
+    Spotted by: Stu
+    Date Seen : 030699
+    Version   :
+    Work2Date :
+
+
+
+    Number    : MF-002
+    Summary   : Sort out the bottom right of the control panel.
+    
+    Details   : Replaced with MF-004 {SB 020699}
+    Priority  : 
+    Spotted by:
+    Date Seen :
+    Version   :
+    Work2Date :
+
+
+----------
+
+    Number    : GB-001
+    Summary   : Graphics on buy category menu screen show multiple "blacks" 
+    
+    Details   : Individual put graphics that make up picture can be seen. Requires tidy
+    		up to match different blacks.
+    Priority  : Low
+    Spotted by: Rob
+    Date Seen : 
+    Version   :
+    Work2Date : none
+    
+
+    Number    : EB-001
+    Summary   : Go through code looking for hardwired 3 buffer code 
+
+    Details   : Typical Symptom -- Flashing screens (i.e. when paused)
+                Done 290599 SB
+    Priority  : 
+    Spotted by: Stu
+    Date Seen :
+    Version   :
+    Work2Date :
+
+    Number    : PF-002
+    Summary   : Visual shields [WIP 250999 - Stu]
+    
+    Details   : A la mothership shields for Zex and possibly others.
+                [Done 260599] Only Zex currently but written in a way to alow others
+                to use the same controller if need be.
+    Priority  : 
+    Spotted by: Stu
+    Date Seen :
+    Version   :
+    Work2Date :
+
+
+    Number    : EF-007
+    Summary   : Space Dust not regenerating to fill screen when camera zoomed out
+                [Fixed 250599 - SB] Linked gen and kill dust to camera pos z.
+                    
+    Details   : When speed increases or player manually zooms camera out the space
+                dust being enerated in front of Zex does not adequately cover the spread - 
+                i.e. the dust generator is not taking the increased FOV into acct.
+    Priority  : low
+    Spotted by: Stu
+    Date Seen : 240599
+    Version   :
+    Work2Date :
+
+
+
+    Number    : PB-001 
+    Summary   : fix missiles re large shield and generally not working. !WIP 240599 - SB!
+                [FIXED 250599 - SB]
+                (Mothership collision was not descriminating between missiles and motherships)    
+    
+    Details   :
+    Priority  : 
+    Spotted by: Stu
+    Date Seen :
+    Version   :
+    Work2Date :
+
+
+    Number    : SB-001
+    Summary   : Main screen camera flare effect has black notch out of it. [DONE 250599 SB]
+    
+    Details   : possibly background of buttons is cutting into zex logo. Turn up brightness.
+    Priority  : 
+    Spotted by: Rob
+    Date Seen : 24/5/99
+    Version   :
+    Work2Date :
+
+
+
+    Number    : ZB-002
+    Summary   : Main screen - volume buttons take two or three presses to increment.
+                [DONE 250599 SB]
+    Details   : 
+    Priority  : 
+    Spotted by: Ian
+    Date Seen : 24/5/99
+    Version   :
+    Work2Date :
+
+
+    Number    : ZF-001
+    Summary   : Add feedback sound to volume up/down buttons on main select screen
+                [DONE 250599 SB]
+    Details   :  
+		
+
+    Priority  : 
+    Spotted by: Stu
+    Date Seen : 250599
+    Version   :
+    Work2Date :
+
+
+    Number    : ZB-001
+    Summary   : Sound very quiet [DONE 250599 SB] 
+    
+    Details   : Zex works with 6 bits of amplitude info - Mac needs 8. Multiplied all
+                Zex inputs by 4 in sound.c
+    Priority  : low
+    Spotted by: Stu.
+    Date Seen : 250599
+    Version   :
+    Work2Date :
+
+-------------
+
+    Number    : EB-005
+    Summary   : Get some timing on 7200 - still unacceptably slow even with pixel double.
+    
+    Details   : Typ. 12fps with lots of objects on - better but not ideal. Two methods possible - 
+    		(a) time using profiler in powermac debugger, (b) put timer to get ratio between
+    		splat, renderer, and rest.
+    		
+    		Rob wrote timer/ratio routines; incorporated and cleared - SB
+    Priority  : 
+    Spotted by: Rob
+    Date Seen :
+    Version   :
+    Work2Date :
+
+
+-----------
+
+    Number    : EF-003
+    Summary   : screen centering !DONE 23 05 99 1700 SB!
+    
+    Details   :
+    Priority  : 
+    Spotted by:
+    Date Seen :
+    Version   :
+    Work2Date :
+
+
+    Number    : EF-004
+    Summary   : no res change !DONE 23 05 99 1700 SB!
+    
+    Details   :
+    Priority  : 
+    Spotted by:
+    Date Seen :
+    Version   :
+    Work2Date :
+
+
+
+
+
+
+----------------------------------------------------------------------------------
+-------------------------------ZEX SCRIPT-----------------------------------------
+       ---------------------LS CONFIDENTIAL----------------------
+----------------------EYES: DEVELOPERS & TESTERS ONLY-----------------------------
+------------------WHERE POSSIBLE PASSWORD PROTECT THIS FILE-----------------------
+----------------------------------------------------------------------------------
+
+-----------Start game
+1. Destroy all weapons, ships and ionic device on alien wharehouse ship (two of em?)
+orbiting earth thus preventing imminent world destruction.
+
+2. Clear a path from earth to Mars and await command mothership following behind.
+This level spans about 2 million units in x (left to right). Ships encountered will be randomly generated 
+by the level controller and consist of warpers, mon2's, mon1's (vertical movement only) and the odd
+Phoenix. There will be a fleet of 3 wingmen and it is envisaged there will be some major battles.
+The end zone is marked by a large circular coral. Player gets there and defends it whilst waiting for mship.
+
+3. Destroy ionic device depot guarded by boids out at Mars. Player requires
+missile tuner to affect boids. This prevents destruction of earth. Player promoted.
+
+
+ZEX RECEIVES MESSAGES FROM COMMAND FROM HERE ON.
+4. Deactivate alien relay station orbitting Jupiter before command for 
+earth advance on RMParian system is broadcast from earth to fleets; thus preventing
+aliens gaining knowledge of human plans. This is a timed level - message transmitted
+at 1430, mission starts at 1400. If message is transmitted and relay station picks it up
+mission failed. We're all doomed.
+
+
+5. Escort scout mothership from Jupiter to RMparian system. Destruction of mship=fail. 
+Possible gateway spot effect here?
+
+
+-----------End of shareware levels
+
+
+-----------Mid game phase
+
+6. Protect scout mothership from alien onslaught whilst fleet arrives. Destruction of mship
+ = fail. Fleet arrives.
+ 
+7. Scout mission to D'orven Depot. Zex fitted with recon equipment. Find and film
+D'orven depot (large ship) nd Alehmon (holding pen) and return succesfully to earth 
+mothership. Long journey.
+
+8. Guard mission around earth fleet. Level programmed with seven waypoints, all of which
+must be visited to achieve goal (big rects in level controller). Return to mship.
+
+9. Zex leads squadron attack on suprise RMparian attack on mothership. Player promoted.
+
+10. The war is going badly. Earth fleet down to 40%. Zex sent back to earth to summon 
+reinforcements. During journey zex hits some kind of "hole" and is flung into
+unknown rmparian space. Docks with Alien mothership due to hull damage.
+
+11. Nav Vector still pointing to earth - no mission this time. Player will (hopefully) 
+leave alien mothership and (hopefully) twig he should head back to earth. OBC repeats last
+mission directive at 5 minute intervals. Meets 3 similarily stranded earth ships (message
+comes in signalling alegiance and indicating they are lost) These follow Zex in formation.
+Meet up with a band of alien pirates out for booty (controller flashes PIRATES! up on dlp).
+Large battle. On destruction of pirates crackly message from earth - dock with alien 
+mothership.
+
+12. Earth mothership in vicinity of alien mothership. Zex helps with battle. Alien
+mathership gets destroyed. Message to dock with earth mothership.
+
+13. Find RMparian space nav computer. Shows all holes in vicinity. This will be on one
+of the alien motherships. Return to earth mothership.
+
+14. Escort earth mothership back to hole that lead us into this unknown place. Dock with
+earth mship on other side of hole.
+
+15. Earth mship stays in place, Zex proceed back to earth (gateway spot effect). Docks 
+with earth mship at Jupiter and gives "reinforcments needed" message. 
+
+Big bonus for this. Player promoted. Zex upgraded to larger ship. Hopefully player 
+buys lots of useful kit.
+
+16. Lead fleet to RMparian space, defending admirals ship.
+
+17. Large battle. Prospects looking up for earth but still not good.
+
+
+---------------End game phase
+
+Master plan hatched.
+18. Mission to locate and get an ionic device from compound out at D'Orven depot.
+
+19. Stealth mission to destroy RMparian command with ironically captured ionic device.
+Succeeds but has no effect on RMparians command and control???
+
+20. Mission to lead a group against remains of command and control - reinforced
+already; Zex takes heavy losses and commanded to return to base.
+
+21. Mission to fire thermo neclear device into Rmparians two suns, thus destroying them. 
+Timer on devices. 20 minutes to get back to mship after planting last one. OBC gives 
+temperature readout.
+
+Devices explode (spot effect). Mission complete.
+
+22. RMparians well annoyed - mission to lead fleet back to earth and end of game.
+Any chasing RMparians give up about half way. Spot effect as per #4.
+
+END SCENE
+Alien mothership moving into orbit around Jupiter to a doom type sound. Slowly fades to 
+black then full credits with starshine theme tune.
