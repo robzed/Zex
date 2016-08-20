@@ -1,5 +1,5 @@
 // Zex - 2D Space Trading Game with 3D graphics
-// Copyright (C) 1998-2005  Stuart Ball and Robert Probin
+// Copyright (C) 1992-2005  Stuart Ball and Robert Probin
 //
 //    This program is free software: you can redistribute it and/or modify
 //    it under the terms of the GNU General Public License as published by
