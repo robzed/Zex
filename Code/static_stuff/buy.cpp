@@ -980,7 +980,7 @@ display_goods(REPAIRS);
 //bottom 20, right 30 is exit
 	ZexGetMouse (&mouse_xy);
 	user_delay(1);	//Some time for the system so we don't hog the processor
-     if (mouse_xy.h>540 && mouse_xy.h<640 && mouse_xy.v>430 && mouse_xy.v<480 || credits==0)
+     if ((mouse_xy.h>540 && mouse_xy.h<640 && mouse_xy.v>430 && mouse_xy.v<480) || credits==0)
      break;
      
 //check if y<400, if so it's a bona fide selection
@@ -1057,7 +1057,7 @@ Point mouse_xy;
 //bottom 20, right 30 is exit
 	ZexGetMouse (&mouse_xy);
 	user_delay(1);	//Some time for the system so we don't hog the processor
-     if (mouse_xy.h>540 && mouse_xy.h<640 && mouse_xy.v>430 && mouse_xy.v<480 || credits==0)
+     if ((mouse_xy.h>540 && mouse_xy.h<640 && mouse_xy.v>430 && mouse_xy.v<480) || credits==0)
      break;
      
 //check if y<400, if so it's a bona fide selection
