@@ -51,7 +51,7 @@ There are various SDL libraries in the repository  - these have their own licens
 There are quite a few things that need doing, here are a few:
 
  * Intro sound cuts-off (timing issue?)
- * Some music & sounds) don’t play
+ * Some music & sounds don’t play
  * Zex Pandora build has some obvious problems
   - Crash in credits
   - Text is just bar graphics
