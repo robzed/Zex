@@ -36,7 +36,8 @@ Graphics - source not supplied, but:
     Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0)
 (Contact us if you need other terms).
 
-Please only use the ‘Zex’ name - to represent the original game and ‘Lightsoft’ logos (including fonts, rainbows, and Anvil) to represent only the trading name of original authors (Stuart Ball and Robert Probin). We consider these trademarks - although distribution with game is permitted as long as you don’t try to trade with these logos or otherwise represent them as your own. 
+Please only use the ‘Zex’ name - to represent the original game and ‘Lightsoft’ logos (including fonts, rainbows, and Anvil) to represent only the trading name of original authors (Stuart Ball and Robert Probin). We consider these trademarks - although distribution with game is permitted as long as you don’t try to trade with these logos or otherwise represent them as your own.
+
 
 Documentation:
   Attribution-NonCommercial-ShareAlike 4.0 International
@@ -47,5 +48,22 @@ There are various SDL libraries in the repository  - these have their own licens
 
 ## OUTSTANDING CHANGES REQUIRED
 
-((to be filled in later))
+There are quite a few things that need doing, here are a few:
+
+ * Intro sound cuts-off (timing issue?)
+ * Some music & sounds) don’t play
+ * Zex Pandora build has some obvious problems
+  - Crash in credits
+  - Text is just bar graphics
+  - Breaks on game end
+ * On some machines full screen is shifted to the left?
+ * Split application data directory and game-save data-write directory (saved games, key prefs, game prefs)
+ * Consider Double resolution of screen (scale non-3D).
+ * Build bugs list (and get original bugs list?)
+ * Sort out 64-bit build of Zex
+ * What do we want to do with all the Lightsoft.co.uk addresses?
+ * Linux build (Code::Blocks?)
+ * Put up some pre-built versions somewhere
+
+
 
