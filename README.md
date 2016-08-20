@@ -62,7 +62,7 @@ There are quite a few things that need doing, here are a few:
  * Build bugs list (and get original bugs list?)
  * Sort out 64-bit build of Zex
  * What do we want to do with all the Lightsoft.co.uk addresses?
- * Linux build (Code::Blocks?)
+ * Linux build
  * Put up some pre-built versions somewhere
 
 
