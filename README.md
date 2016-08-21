@@ -63,7 +63,6 @@ There are quite a few things that need doing, here are a few:
  * Sort out 64-bit build of Zex
  * What do we want to do with all the Lightsoft.co.uk addresses?
  * Linux build
- * Put up some pre-built versions somewhere
 
 ## BINARIES
 A Mac prebuilt binary can be downloaded at:
