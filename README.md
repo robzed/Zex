@@ -65,5 +65,7 @@ There are quite a few things that need doing, here are a few:
  * Linux build
  * Put up some pre-built versions somewhere
 
-
+## BINARIES
+A Mac prebuilt binary can be downloaded at:
+    http://trx-elgar.synology.me/downloads/ZexMac.zip
 
