@@ -1,5 +1,4 @@
-# Zex
-2D Space Game with 3D graphics
+# Zex - 2D Space Game with 3D graphics
 
 Zex is a 1998 space-trading game with 2D game area but with 3D objects rendered with a software render. 
 
@@ -67,4 +66,6 @@ There are quite a few things that need doing, here are a few:
 ## BINARIES
 A Mac prebuilt binary can be downloaded at:
     http://trx-elgar.synology.me/downloads/ZexMac.zip
+    http://robprobin.com/pmwiki.php?n=Main.Zex
 (Note, you will need to Ctrl-click on the file to open it, as it isn't signed.)
+

@@ -215,6 +215,7 @@
 		207DA1F00970CA4900AD1470 /* Zex_Icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 207DA1EF0970CA4900AD1470 /* Zex_Icon.icns */; };
 		D40AB97D09F57F40008A36C0 /* game_registration_menu.h in Headers */ = {isa = PBXBuildFile; fileRef = D40AB97B09F57F40008A36C0 /* game_registration_menu.h */; };
 		D40AB97E09F57F40008A36C0 /* game_registration_menu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D40AB97C09F57F40008A36C0 /* game_registration_menu.cpp */; };
+		D41DEB821D6833C10026996A /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = D41DEB811D6833C10026996A /* README.md */; };
 		D4354B2309D7EF7F00BAB2CA /* save_path_destination.h in Headers */ = {isa = PBXBuildFile; fileRef = D4354B2109D7EF7F00BAB2CA /* save_path_destination.h */; };
 		D4354B2409D7EF7F00BAB2CA /* save_path_destination.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4354B2209D7EF7F00BAB2CA /* save_path_destination.cpp */; };
 		D4354B4209D9D07D00BAB2CA /* enhanced_string.h in Headers */ = {isa = PBXBuildFile; fileRef = D4354B4009D9D07D00BAB2CA /* enhanced_string.h */; };
@@ -293,6 +294,7 @@
 		D4003EEA0851D72A0022E885 /* main.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = main.h; sourceTree = "<group>"; };
 		D40AB97B09F57F40008A36C0 /* game_registration_menu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = game_registration_menu.h; sourceTree = "<group>"; };
 		D40AB97C09F57F40008A36C0 /* game_registration_menu.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = game_registration_menu.cpp; sourceTree = "<group>"; };
+		D41DEB811D6833C10026996A /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		D4354B2109D7EF7F00BAB2CA /* save_path_destination.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = save_path_destination.h; sourceTree = "<group>"; };
 		D4354B2209D7EF7F00BAB2CA /* save_path_destination.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = save_path_destination.cpp; sourceTree = "<group>"; };
 		D4354B4009D9D07D00BAB2CA /* enhanced_string.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = enhanced_string.h; sourceTree = "<group>"; };
@@ -601,6 +603,7 @@
 		29B97314FDCFA39411CA2CEA /* Zex */ = {
 			isa = PBXGroup;
 			children = (
+				D41DEB811D6833C10026996A /* README.md */,
 				D4B517991BAEC67000EED95E /* ZD3 */,
 				D4B517971BAEC64700EED95E /* Saved Games */,
 				207DA1EF0970CA4900AD1470 /* Zex_Icon.icns */,
@@ -1410,6 +1413,7 @@
 				202AEF5908E890910015D8CB /* score_and_credits.cpp in Sources */,
 				202AEF5A08E890910015D8CB /* objects_misc.cpp in Sources */,
 				202AEF5B08E890910015D8CB /* planet_gen_main.cpp in Sources */,
+				D41DEB821D6833C10026996A /* README.md in Sources */,
 				202AEF5C08E890910015D8CB /* thrust.cpp in Sources */,
 				202AEF5D08E890910015D8CB /* lives.cpp in Sources */,
 				202AEF5E08E890910015D8CB /* score.cpp in Sources */,
