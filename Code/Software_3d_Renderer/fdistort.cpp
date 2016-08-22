@@ -266,8 +266,8 @@ FLOAT_TYPE b;
 y_width=y2-y1+1; 
 
 x_step=x2-x1;			x_step=I_TO_F(x_step); x_step/=y_width;
-a_step=to_a-from_a; 	a_step=a_step; a_step/=y_width; 	// a_step=I_TO_F(a_step); a_step/=y_width;
-b_step=to_b-from_b; 	b_step=b_step; b_step/=y_width; 	//b_step=I_TO_F(b_step); b_step/=y_width;
+a_step=to_a-from_a;     a_step/=y_width; 	// a_step=I_TO_F(a_step); a_step/=y_width;
+b_step=to_b-from_b; 	b_step/=y_width; 	//b_step=I_TO_F(b_step); b_step/=y_width;
 
 x=I_TO_F(x1);
 a=from_a; 		// I_TO_F(from_a);
