@@ -1484,6 +1484,7 @@
 				);
 				INFOPLIST_FILE = "Info-Zex__Upgraded_.plist";
 				INSTALL_PATH = "$(HOME)/Applications";
+				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks";
 				LIBRARY_SEARCH_PATHS = "";
 				OTHER_LDFLAGS = (
 					"-framework",
@@ -1512,6 +1513,7 @@
 				);
 				INFOPLIST_FILE = "Info-Zex__Upgraded_.plist";
 				INSTALL_PATH = "$(HOME)/Applications";
+				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks";
 				LIBRARY_SEARCH_PATHS = "";
 				OTHER_LDFLAGS = (
 					"-framework",
@@ -1538,6 +1540,7 @@
 				);
 				INFOPLIST_FILE = "Info-Zex__Upgraded_.plist";
 				INSTALL_PATH = "$(HOME)/Applications";
+				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks";
 				LIBRARY_SEARCH_PATHS = "";
 				OTHER_LDFLAGS = (
 					"-framework",
