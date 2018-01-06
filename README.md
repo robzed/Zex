@@ -65,7 +65,7 @@ There are quite a few things that need doing, here are a few:
 
 ## BINARIES
 A Mac prebuilt binary can be downloaded at:
-    http://trx-elgar.synology.me/downloads/ZexMac.zip
+    http://trx-elgar.synology.me/downloads/ZexMac.dmg
 (Note, you will need to Ctrl-click on the file to open it, as it isn't signed.)
 
 (You can also get it from http://robprobin.com/pmwiki.php?n=Main.Zex)
