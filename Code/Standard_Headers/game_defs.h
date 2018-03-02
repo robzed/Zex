@@ -28,7 +28,7 @@
 #else
 #define VERS_STRING "0.99.7" 
 #endif
-#define DATE_STRING " 28 Sept 15"
+#define DATE_STRING " 2 March 17"
 
 #define ENS 0
 #define LT 1

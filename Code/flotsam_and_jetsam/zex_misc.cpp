@@ -298,7 +298,7 @@ void rob_test(const char* drawstring_rob_test_chars)
 static void show_zex_loading_title()
 {
 	MoveTo(230,10);
-	DrawString_c("ZEX Copyright LSG 1998-2015.");
+	DrawString_c("ZEX Copyright LSG 1998-2017.");
 	MoveTo(250,30);
 	DrawString_c("Please wait. Loading...");	
 }

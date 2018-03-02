@@ -1467,7 +1467,7 @@ T(T_POLYDRAW_END);
 #endif
 //quick hack to show fps
 #ifdef copyright
-SplatText_Transparent ("ZEX BY LSG © 1998-2015",120,30);
+SplatText_Transparent ("ZEX BY LSG © 1998-2017",120,30);
 #endif
 
 
@@ -1498,7 +1498,7 @@ Draw_it_no_erase(width,height); //furthest poly first
 
 //quick hack to show fps
 #ifdef copyright
-SplatText_Transparent ("ZEX BY LSG © 1998-2015",120,30);
+SplatText_Transparent ("ZEX BY LSG © 1998-2017",120,30);
 #endif
 
 //Show_it(CONTROL_PANEL_TOP);	//splat 3d portion of window
@@ -1539,7 +1539,7 @@ T(T_POLYDRAW_END);
 #endif
 //quick hack to show fps
 #ifdef copyright
-SplatText_Transparent ("ZEX BY LSG © 1998-2015",120,30);
+SplatText_Transparent ("ZEX BY LSG © 1998-2017",120,30);
 #endif
 
 }
