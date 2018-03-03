@@ -106,7 +106,7 @@ int top,bottom;
 
     kill_loading_screen();
 
-    play_tune(129);
+    play_tune(132);
 
 //play intro movie
     frame=128;
@@ -122,7 +122,7 @@ int top,bottom;
     frame=frames[movie_index].the_frame;
     mdelay=frames[movie_index].the_delay;
     movie_index++;
-    if (frame==137) simple_play_sound(2000);
+   // if (frame==137) simple_play_sound(2000);
     
     the_file_data_H=GetZexPicture ('RCZM',frame);	//lsg    
 	the_drawing_buffer=Get_back_buffer();
@@ -143,7 +143,7 @@ int top,bottom;
     LS_DisposeHandle(the_file_data_H);
     user_delay_no_cursor_update_required(mdelay);		// no show_it() here...
     }
-    simple_stop_sound();
+    //simple_stop_sound();
 
 //now widen the screen up  
     top=75;
@@ -212,8 +212,9 @@ int top,bottom;
  	if (pictbuffer==0) report_error_c("Memory Error:do_intro","",-1);
  	decrunch_pict(the_picture,pictbuffer);
 
-    music_set_vol(music_volume);
-    play_tune(131);	//131 - LS theme
+    //music_set_vol(music_volume);
+    //play_tune(131);	//131 - LS theme
+    //play_tune(131);	//131 - LS theme
 
  	mag=4.0;
  	y_correct=0;

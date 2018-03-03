@@ -729,7 +729,7 @@ ship_counter=0;
 	 
 	 }	//end of while
 
-//fade_out_music();	
+//fade_out_music();
 
 	 LS_DisposeHandle(select_data_H);
      LS_DisposeHandle(button_data_H);

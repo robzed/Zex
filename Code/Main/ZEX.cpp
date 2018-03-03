@@ -656,8 +656,9 @@ void zex_main(void) {
 
 	enable_inputs();
 
-	Use_SpeedLimit=1;	//limit to ~36 fps? 
+	Use_SpeedLimit=1;	//limit to ~36 fps?
 
+    //fade_and_play_zex_resource(131);
 	
 	//   take_mouse_keyboard_as_input();	//120299 - take mouse and keyboard as input sprocket devices
 	//
